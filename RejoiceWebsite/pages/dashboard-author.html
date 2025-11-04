@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoice Institute House | Author Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="hub.html">Hub</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <span class="user-welcome">Welcome, Author!</span>
+                    <a href="#" class="btn btn-login" onclick="logout()">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard-header">
+            <h1>Author Dashboard</h1>
+            <p>Your creative workspace for bringing stories to life</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Manuscript Submissions -->
+            <div class="dashboard-card large">
+                <h3>📝 Manuscript Submissions</h3>
+                <div class="submission-status">
+                    <div class="status-item">
+                        <span class="status-badge reviewing">In Review</span>
+                        <h4>"Echoes of Tomorrow" - Sci-Fi Novel</h4>
+                        <p>Submitted: March 1, 2024 • Editor: Sarah Johnson</p>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-badge draft">Draft</span>
+                        <h4>"Urban Legends" - Short Story Collection</h4>
+                        <p>Last edited: February 28, 2024</p>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-sage">Submit New Manuscript</a>
+            </div>
+
+            <!-- Published Works -->
+            <div class="dashboard-card">
+                <h3>📚 Published Works</h3>
+                <div class="stat-number">3</div>
+                <p>Books in publication</p>
+                <a href="#" class="btn btn-sage">View Portfolio</a>
+            </div>
+
+            <!-- Royalties -->
+            <div class="dashboard-card">
+                <h3>💰 Royalties</h3>
+                <div class="stat-number">$2,847</div>
+                <p>Q1 2024 Earnings</p>
+                <a href="#" class="btn btn-sage">View Details</a>
+            </div>
+
+            <!-- Editor Contacts -->
+            <div class="dashboard-card">
+                <h3>👥 Your Editors</h3>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <div class="contact-avatar"></div>
+                        <div>
+                            <strong>Sarah Johnson</strong>
+                            <p>Senior Editor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Writing Goals -->
+            <div class="dashboard-card">
+                <h3>🎯 Writing Goals</h3>
+                <div class="goal-progress">
+                    <div class="goal-item">
+                        <span>Current Project Progress</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 35%"></div>
+                        </div>
+                        <span>14,283/40,000 words</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Author Resources -->
+            <div class="dashboard-card">
+                <h3>🛠️ Resources</h3>
+                <ul class="resource-list">
+                    <li><a href="#">Style Guide</a></li>
+                    <li><a href="#">Submission Guidelines</a></li>
+                    <li><a href="#">Contract Templates</a></li>
+                    <li><a href="#">Marketing Kit</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Upcoming Deadlines -->
+        <div class="dashboard-section">
+            <h2>Upcoming Deadlines</h2>
+            <div class="deadline-list">
+                <div class="deadline-item urgent">
+                    <span class="deadline-icon">⏰</span>
+                    <div class="deadline-content">
+                        <p><strong>Revised Manuscript Due</strong> - "Echoes of Tomorrow"</p>
+                        <span class="deadline-time">Due: April 15, 2024</span>
+                    </div>
+                </div>
+                <div class="deadline-item">
+                    <span class="deadline-icon">📅</span>
+                    <div class="deadline-content">
+                        <p><strong>Author Q&A Session</strong></p>
+                        <span class="deadline-time">April 22, 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // In dashboard-reader.html, dashboard-author.html, etc. replace the logout function with:
+        function logout() {
+        if (typeof Auth !== 'undefined') {
+        Auth.logoutAndRedirect();
+        } else {
+        // Fallback to localStorage cleanup
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+        }
+        }
+
+        // Set user role for demo
+        localStorage.setItem('userRole', 'author');
+    </script>
+    <!-- Add these BEFORE your script.js -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

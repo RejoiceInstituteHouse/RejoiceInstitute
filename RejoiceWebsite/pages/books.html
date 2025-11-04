@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoice Institute House | Books</title>
+    <!-- Link to our main stylesheet (notice the path goes up one level) -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="hub.html">Hub</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="authors.html">Authors & Creatives</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Login</a>
+                    <a href="register.html" class="btn btn-register">Register</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Books Content -->
+    <main class="container">
+        <section class="page-header">
+            <h1>Our Collection</h1>
+            <p>Discover captivating stories and thought-provoking works from our talented authors.</p>
+        </section>
+
+        <!-- Books Grid Section with Online Images -->
+<section class="books-grid">
+    <!-- Book 1 -->
+    <div class="book-card">
+        <div class="book-cover">
+            <img src="https://github.com/RejoiceInstituteHouse/RejoiceInstituteHouse/blob/main/Words-of-Insight-cover.jpg" alt="Words of Insight Book Cover">
+        </div>
+        <div class="book-info">
+            <h3>Words of Insight</h3>
+            <p class="author">by Promise Khosa & Jazzman Rikhotso</p>
+            <p class="genre">Cultural Poetry · 2023</p>
+            <div class="book-actions">
+                <button class="btn btn-sage">Read More</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book 2 -->
+    <div class="book-card">
+        <div class="book-cover">
+            <img src="https://images.unsplash.com/photo-1554757380-2fb69b9ca2e9?w=400&h=600&fit=crop" alt="Urban Legends Book Cover">
+        </div>
+        <div class="book-info">
+            <h3>Zoe</h3>
+            <p class="author">by *****</p>
+            <p class="genre">Mystery · 2024</p>
+            <div class="book-actions">
+                <button class="btn btn-sage">Read More</button>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Rejoice Institute House. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Add these BEFORE your script.js -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

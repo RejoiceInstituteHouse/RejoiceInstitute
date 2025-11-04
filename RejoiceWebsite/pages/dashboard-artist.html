@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoice Institute House | Artist Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="hub.html">Hub</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <span class="user-welcome">Welcome, Artist!</span>
+                    <a href="#" class="btn btn-login" onclick="logout()">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard-header">
+            <h1>Artist Dashboard</h1>
+            <p>Your creative portfolio and collaboration space</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Portfolio -->
+            <div class="dashboard-card large">
+                <h3>🎨 Your Portfolio</h3>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="artwork-preview"></div>
+                        <div class="artwork-info">
+                            <h4>Cover Design: "Whispers of Dawn"</h4>
+                            <span class="artwork-status published">Published</span>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="artwork-preview"></div>
+                        <div class="artwork-info">
+                            <h4>Illustration: "Urban Legends"</h4>
+                            <span class="artwork-status in-progress">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-sage">Upload New Work</a>
+            </div>
+
+            <!-- Commission Status -->
+            <div class="dashboard-card">
+                <h3>💼 Commissions</h3>
+                <div class="commission-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Active</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-sage">View All</a>
+            </div>
+
+            <!-- Earnings -->
+            <div class="dashboard-card">
+                <h3>💰 Earnings</h3>
+                <div class="stat-number">$8,450</div>
+                <p>Total earned</p>
+                <div class="earnings-breakdown">
+                    <span>This month: $1,200</span>
+                </div>
+            </div>
+
+            <!-- Collaborations -->
+            <div class="dashboard-card">
+                <h3>🤝 Collaborations</h3>
+                <div class="collaboration-list">
+                    <div class="collab-item">
+                        <div class="collab-avatar"></div>
+                        <div>
+                            <strong>James Wilson</strong>
+                            <p>Author - Mystery Series</p>
+                        </div>
+                    </div>
+                    <div class="collab-item">
+                        <div class="collab-avatar"></div>
+                        <div>
+                            <strong>Maria Gonzalez</strong>
+                            <p>Poet - New Collection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art Supplies -->
+            <div class="dashboard-card">
+                <h3>🛠️ Resources</h3>
+                <ul class="resource-list">
+                    <li><a href="#">Style Guide</a></li>
+                    <li><a href="#">Print Specifications</a></li>
+                    <li><a href="#">Color Palettes</a></li>
+                    <li><a href="#">Submission Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Gallery Stats -->
+            <div class="dashboard-card">
+                <h3>📈 Gallery</h3>
+                <div class="stat-number">47</div>
+                <p>Artworks published</p>
+                <div class="gallery-stats">
+                    <span>Views: 12.4K</span>
+                    <span>Likes: 856</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Projects -->
+        <div class="dashboard-section">
+            <h2>Current Projects</h2>
+            <div class="project-list">
+                <div class="project-item">
+                    <div class="project-header">
+                        <h4>Book Cover - "Silent Symphony"</h4>
+                        <span class="project-deadline">Due: April 30, 2024</span>
+                    </div>
+                    <div class="project-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <span>75% complete</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="#" class="btn btn-sage">Continue Work</a>
+                        <a href="#" class="btn btn-login">Request Feedback</a>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-header">
+                        <h4>Illustration Series - "Mythical Creatures"</h4>
+                        <span class="project-deadline">Due: May 15, 2024</span>
+                    </div>
+                    <div class="project-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 30%"></div>
+                        </div>
+                        <span>30% complete</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="#" class="btn btn-sage">Continue Work</a>
+                        <a href="#" class="btn btn-login">Request Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artist Community -->
+        <div class="dashboard-section">
+            <h2>Artist Community</h2>
+            <div class="community-feed">
+                <div class="community-post">
+                    <div class="post-header">
+                        <div class="post-avatar"></div>
+                        <div>
+                            <strong>Digital Art Workshop</strong>
+                            <span>Posted 2 days ago</span>
+                        </div>
+                    </div>
+                    <p>Join our monthly digital art workshop focusing on book cover design techniques and industry trends.</p>
+                    <a href="#" class="btn btn-sage">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // In dashboard-reader.html, dashboard-author.html, etc. replace the logout function with:
+        function logout() {
+        if (typeof Auth !== 'undefined') {
+        Auth.logoutAndRedirect();
+        } else {
+        // Fallback to localStorage cleanup
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+        }
+        }
+
+        // Set user role for demo
+        localStorage.setItem('userRole', 'artist');
+    </script>
+    <!-- Add these BEFORE your script.js -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

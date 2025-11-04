@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoice Institute House | Admin Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="hub.html">Hub</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <span class="user-welcome">Welcome, Admin!</span>
+                    <a href="#" class="btn btn-login" onclick="logout()">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <p>Site administration and management portal</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Site Overview -->
+            <div class="dashboard-card large">
+                <h3>📊 Site Overview</h3>
+                <div class="admin-stats">
+                    <div class="stat-row">
+                        <div class="stat-box">
+                            <div class="stat-number">1,247</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">356</div>
+                            <div class="stat-label">Active Today</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">89</div>
+                            <div class="stat-label">New This Week</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Management -->
+            <div class="dashboard-card">
+                <h3>👥 User Management</h3>
+                <div class="stat-number">1,247</div>
+                <p>Registered users</p>
+                <div class="quick-actions">
+                    <a href="#" class="btn btn-admin">Manage Users</a>
+                    <a href="#" class="btn btn-admin">View Reports</a>
+                </div>
+            </div>
+
+            <!-- Content Management -->
+            <div class="dashboard-card">
+                <h3>📝 Content</h3>
+                <div class="stat-number">543</div>
+                <p>Published books</p>
+                <div class="quick-actions">
+                    <a href="#" class="btn btn-admin">Add Content</a>
+                    <a href="#" class="btn btn-admin">Moderate</a>
+                </div>
+            </div>
+
+            <!-- Submissions -->
+            <div class="dashboard-card">
+                <h3>📨 Submissions</h3>
+                <div class="stat-number">23</div>
+                <p>Pending review</p>
+                <a href="#" class="btn btn-admin urgent">Review Now</a>
+            </div>
+
+            <!-- Financial -->
+            <div class="dashboard-card">
+                <h3>💰 Financial</h3>
+                <div class="stat-number">$45,678</div>
+                <p>Q1 2024 Revenue</p>
+                <a href="#" class="btn btn-admin">View Reports</a>
+            </div>
+
+            <!-- System Health -->
+            <div class="dashboard-card">
+                <h3>⚙️ System Health</h3>
+                <div class="system-status">
+                    <div class="status-item online">
+                        <span class="status-dot"></span>
+                        Website
+                    </div>
+                    <div class="status-item online">
+                        <span class="status-dot"></span>
+                        Database
+                    </div>
+                    <div class="status-item warning">
+                        <span class="status-dot"></span>
+                        Backup
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="dashboard-section">
+            <h2>Recent Site Activity</h2>
+            <div class="admin-activity">
+                <div class="activity-item">
+                    <span class="activity-icon">👤</span>
+                    <div class="activity-content">
+                        <p><strong>New user registration:</strong> Sarah Chen (Author)</p>
+                        <span class="activity-time">10 minutes ago</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-icon">📚</span>
+                    <div class="activity-content">
+                        <p><strong>New book published:</strong> "Echoes of Tomorrow"</p>
+                        <span class="activity-time">2 hours ago</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-icon">💬</span>
+                    <div class="activity-content">
+                        <p><strong>New comment awaiting moderation</strong></p>
+                        <span class="activity-time">5 hours ago</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-icon">🛒</span>
+                    <div class="activity-content">
+                        <p><strong>New book purchase:</strong> $24.99</p>
+                        <span class="activity-time">1 day ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Tools -->
+        <div class="dashboard-section">
+            <h2>Admin Tools</h2>
+            <div class="admin-tools">
+                <div class="tool-card">
+                    <h4>User Management</h4>
+                    <p>Manage user accounts and permissions</p>
+                    <a href="#" class="btn btn-admin">Access</a>
+                </div>
+                <div class="tool-card">
+                    <h4>Content Moderation</h4>
+                    <p>Review and approve submissions</p>
+                    <a href="#" class="btn btn-admin">Access</a>
+                </div>
+                <div class="tool-card">
+                    <h4>Analytics</h4>
+                    <p>View site statistics and reports</p>
+                    <a href="#" class="btn btn-admin">Access</a>
+                </div>
+                <div class="tool-card">
+                    <h4>System Settings</h4>
+                    <p>Configure site settings</p>
+                    <a href="#" class="btn btn-admin">Access</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // In dashboard-reader.html, dashboard-author.html, etc. replace the logout function with:
+        function logout() {
+        if (typeof Auth !== 'undefined') {
+        Auth.logoutAndRedirect();
+        } else {
+        // Fallback to localStorage cleanup
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+        }
+        }
+        // Set user role for demo
+        localStorage.setItem('userRole', 'admin');
+    </script>
+    <!-- Add these BEFORE your script.js -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

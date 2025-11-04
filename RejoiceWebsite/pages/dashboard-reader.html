@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoice Institute House | Reader Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="hub.html">Hub</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <span class="user-welcome">Welcome, Reader!</span>
+                    <a href="#" class="btn btn-login" onclick="logout()">Logout</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="dashboard-header">
+            <h1>Reader Dashboard</h1>
+            <p>Your personal reading sanctuary</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Reading Progress -->
+            <div class="dashboard-card large">
+                <h3>📖 Currently Reading</h3>
+                <div class="reading-progress">
+                    <div class="book-item">
+                        <div class="book-cover-small"></div>
+                        <div class="book-details">
+                            <h4>The Silent Symphony</h4>
+                            <p>by Maria Gonzalez</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span class="progress-text">65% completed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Library -->
+            <div class="dashboard-card">
+                <h3>📚 Your Library</h3>
+                <div class="stat-number">12</div>
+                <p>Books in collection</p>
+                <a href="#" class="btn btn-sage">Manage Library</a>
+            </div>
+
+            <!-- Reading Stats -->
+            <div class="dashboard-card">
+                <h3>📊 Reading Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">This Month</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">28</div>
+                        <div class="stat-label">This Year</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bookmarks -->
+            <div class="dashboard-card">
+                <h3>🔖 Bookmarks</h3>
+                <div class="stat-number">8</div>
+                <p>Saved pages & quotes</p>
+                <a href="#" class="btn btn-sage">View Bookmarks</a>
+            </div>
+
+            <!-- Reading Goals -->
+            <div class="dashboard-card">
+                <h3>🎯 Reading Goals</h3>
+                <div class="goal-progress">
+                    <div class="goal-item">
+                        <span>2024 Reading Challenge</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 42%"></div>
+                        </div>
+                        <span>21/50 books</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community -->
+            <div class="dashboard-card">
+                <h3>👥 Community</h3>
+                <div class="stat-number">15</div>
+                <p>Friends & followers</p>
+                <a href="hub.html" class="btn btn-sage">Join Discussion</a>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="dashboard-section">
+            <h2>Recent Activity</h2>
+            <div class="activity-feed">
+                <div class="activity-item">
+                    <span class="activity-icon">📖</span>
+                    <div class="activity-content">
+                        <p>You started reading <strong>"The Silent Symphony"</strong></p>
+                        <span class="activity-time">2 days ago</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-icon">💬</span>
+                    <div class="activity-content">
+                        <p>You commented on <strong>"Writing Through Challenges"</strong></p>
+                        <span class="activity-time">1 week ago</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-icon">⭐</span>
+                    <div class="activity-content">
+                        <p>You rated <strong>"Whispers of Dawn"</strong> 5 stars</p>
+                        <span class="activity-time">2 weeks ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        
+        // In dashboard-reader.html, dashboard-author.html, etc. replace the logout function with:
+        function logout() {
+        if (typeof Auth !== 'undefined') {
+        Auth.logoutAndRedirect();
+        } else {
+        // Fallback to localStorage cleanup
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+        }
+        }
+
+        // Set user role for demo
+        localStorage.setItem('userRole', 'reader');
+    </script>
+    <!-- Add these BEFORE your script.js -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

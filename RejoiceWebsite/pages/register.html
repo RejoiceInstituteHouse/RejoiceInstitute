@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoice Institute House | Register</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="books.html">Books</a></li>
+                    <li><a href="hub.html">Hub</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="authors.html">Authors & Creatives</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Login</a>
+                    <a href="register.html" class="btn btn-register">Register</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Register Content -->
+    <main class="container">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Join Our Community</h1>
+                    <p>Create your account and start your creative journey with us</p>
+                </div>
+
+                <form class="auth-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first_name" required placeholder="First name">
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last_name" required placeholder="Last name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <input type="email" id="register-email" name="email" required placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-type">I am a...</label>
+                        <select id="user-type" name="user_type" required>
+                            <option value="">Select your role</option>
+                            <option value="reader">Reader & Enthusiast</option>
+                            <option value="writer">Writer & Author</option>
+                            <option value="artist">Visual Artist</option>
+                            <option value="student">Student</option>
+                            <option value="professional">Industry Professional</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" required placeholder="Create a password">
+                        <div class="password-requirements">
+                            <p>Password must contain:</p>
+                            <ul>
+                                <li>At least 8 characters</li>
+                                <li>One uppercase letter</li>
+                                <li>One number</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm_password" required placeholder="Confirm your password">
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="newsletter" checked>
+                            <span class="checkmark"></span>
+                            Send me literary updates and newsletter
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-register auth-submit">Create Account</button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>Or sign up with</span>
+                </div>
+
+                <div class="social-auth">
+                    <button type="button" class="btn-social google-auth">
+                        <span class="social-icon">🔍</span>
+                        Google
+                    </button>
+                    <button type="button" class="btn-social facebook-auth">
+                        <span class="social-icon">📘</span>
+                        Facebook
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                </div>
+            </div>
+
+            <div class="auth-welcome">
+                <div class="welcome-content">
+                    <h2>Why Join Rejoice Institute?</h2>
+                    <div class="welcome-features">
+                        <div class="feature">
+                            <span class="feature-icon">🌟</span>
+                            <div>
+                                <h3>Exclusive Content</h3>
+                                <p>Access member-only articles, early book releases, and special editions</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">📖</span>
+                            <div>
+                                <h3>Personalized Library</h3>
+                                <p>Build your digital bookshelf and track your reading journey</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">👥</span>
+                            <div>
+                                <h3>Creative Network</h3>
+                                <p>Connect with authors, artists, and fellow literature lovers</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🎯</span>
+                            <div>
+                                <h3>Submission Portal</h3>
+                                <p>Submit your work directly to our editorial team</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Rejoice Institute House. All rights reserved.</p>
+        </div>
+    </footer>
+<!-- Add these BEFORE your script.js -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

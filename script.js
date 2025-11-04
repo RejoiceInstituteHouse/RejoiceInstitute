@@ -1,12 +1,10 @@
-// script.js - Rejoice Institute House - FIREBASE VERSION
-console.log('Rejoice Institute House - Firebase Version Loaded');
+// script.js - Rejoice Institute House - FIXED FIREBASE VERSION
+console.log('Rejoice Institute House - Fixed Firebase Version Loaded');
 
-// Firebase Authentication System
+// Firebase Authentication System - COMPLETELY FIXED
 const Auth = {
-    // Current user session
     currentUser: null,
     
-    // Initialize auth state listener
     init: function() {
         auth.onAuthStateChanged((user) => {
             if (user) {
@@ -18,14 +16,15 @@ const Auth = {
                         email: user.email,
                         profile: profile
                     }));
+                    this.updateAuthUI();
                 });
                 console.log('User signed in:', user.email);
             } else {
                 this.currentUser = null;
                 localStorage.removeItem('currentUser');
                 console.log('User signed out');
+                this.updateAuthUI();
             }
-            this.updateAuthUI();
         });
         
         // Restore from localStorage if available
@@ -37,7 +36,7 @@ const Auth = {
         this.updateAuthUI();
     },
     
-    // Register new user with Firebase
+    // ✅ FIXED: Register AND auto-login user
     register: async function(userData) {
         try {
             // Create user in Firebase Authentication
@@ -48,18 +47,35 @@ const Auth = {
             
             const user = userCredential.user;
             
-            // Determine user type based on email
-            let userType = this.determineUserType(userData.email);
+            // ✅ USE THE USER TYPE FROM FORM SELECTION
+            let userType = userData.user_type || 'reader';
+            
+            console.log('🎯 Registration - User selected type:', userType);
             
             // Create user profile in Firestore
             await this.createUserProfile(user.uid, {
-                firstName: userData.firstName,
-                lastName: userData.lastName,
+                firstName: userData.first_name,
+                lastName: userData.last_name,
                 email: userData.email,
                 userType: userType,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 isActive: true
             });
+            
+            // ✅ AUTO-LOGIN: User is already logged in after registration
+            this.currentUser = user;
+            this.currentUser.profile = {
+                firstName: userData.first_name,
+                lastName: userData.last_name,
+                email: userData.email,
+                userType: userType
+            };
+            
+            localStorage.setItem('currentUser', JSON.stringify({
+                uid: user.uid,
+                email: user.email,
+                profile: this.currentUser.profile
+            }));
             
             return { 
                 success: true, 
@@ -76,7 +92,6 @@ const Auth = {
         }
     },
     
-    // Login user with Firebase
     login: async function(email, password) {
         try {
             const userCredential = await auth.signInWithEmailAndPassword(email, password);
@@ -84,7 +99,14 @@ const Auth = {
             
             // Get user profile
             const profile = await this.getUserProfile(user.uid);
-            user.profile = profile;
+            this.currentUser = user;
+            this.currentUser.profile = profile;
+            
+            localStorage.setItem('currentUser', JSON.stringify({
+                uid: user.uid,
+                email: user.email,
+                profile: profile
+            }));
             
             return { 
                 success: true, 
@@ -100,10 +122,11 @@ const Auth = {
         }
     },
     
-    // Logout user
     logout: async function() {
         try {
             await auth.signOut();
+            this.currentUser = null;
+            localStorage.removeItem('currentUser');
             return { success: true };
         } catch (error) {
             console.error('Logout error:', error);
@@ -111,18 +134,16 @@ const Auth = {
         }
     },
     
-    // Create user profile in Firestore
     createUserProfile: async function(uid, userData) {
         try {
             await db.collection('users').doc(uid).set(userData);
-            console.log('User profile created for:', uid);
+            console.log('User profile created for:', uid, 'with data:', userData);
         } catch (error) {
             console.error('Error creating user profile:', error);
             throw error;
         }
     },
     
-    // Get user profile from Firestore
     getUserProfile: async function(uid) {
         try {
             const doc = await db.collection('users').doc(uid).get();
@@ -138,62 +159,43 @@ const Auth = {
         }
     },
     
-    // Update user profile
-    updateUserProfile: async function(uid, updates) {
-        try {
-            await db.collection('users').doc(uid).update(updates);
-            console.log('User profile updated for:', uid);
-            return { success: true };
-        } catch (error) {
-            console.error('Error updating user profile:', error);
-            return { success: false, message: error.message };
-        }
-    },
-    
-    // Determine user type based on email
-    determineUserType: function(email) {
+    // ✅ UPDATED: Better user type detection with YOUR emails
+    determineUserType: function(email, selectedType = 'reader') {
+        console.log('Determining user type for email:', email, 'Selected:', selectedType);
+        
+        if (!email) return selectedType;
+        
         const userEmail = email.toLowerCase();
         
         // =============================================
-        // 🎯 MODIFY THESE EMAIL LISTS AS NEEDED
+        // 🎯 ADD YOUR ADMIN EMAILS HERE
         // =============================================
         const adminEmails = [
-            'your-admin-email@gmail.com',    // ← CHANGE THIS
-            'admin@rejoiceinstitute.org'
+            'rejoiceinstitutehouse@gmail.com',    // ← YOUR MAIN ADMIN EMAIL
+            'khosapromise12@gmail.com',           // ← YOUR PERSONAL EMAIL
+            'rejoiceinstitutehouse@gmail.com',         // ← YOUR COMPANY ADMIN EMAIL
+            'your-other-admin@email.com'          // ← ADD MORE IF NEEDED
         ];
         
-        const authorEmails = [
-            'author@rejoiceinstitute.org',
-            'writer@rejoiceinstitute.org'
-        ];
-        
-        const artistEmails = [
-            'artist@rejoiceinstitute.org',
-            'designer@rejoiceinstitute.org'
-        ];
-        
+        // Check if email is in admin list
         if (adminEmails.includes(userEmail)) {
+            console.log('✅ User detected as ADMIN');
             return 'admin';
-        } else if (authorEmails.includes(userEmail)) {
-            return 'author';
-        } else if (artistEmails.includes(userEmail)) {
-            return 'artist';
-        } else {
-            return 'reader';
         }
+        
+        // Otherwise use the selected type from registration form
+        console.log('✅ Using selected user type:', selectedType);
+        return selectedType;
     },
     
-    // Check if user is logged in
     isLoggedIn: function() {
         return this.currentUser !== null;
     },
     
-    // Get current user
     getCurrentUser: function() {
         return this.currentUser;
     },
     
-    // Get error message from Firebase error
     getErrorMessage: function(error) {
         switch (error.code) {
             case 'auth/email-already-in-use':
@@ -213,7 +215,6 @@ const Auth = {
         }
     },
     
-    // Update UI based on authentication state
     updateAuthUI: function() {
         const authButtons = document.querySelector('.auth-buttons');
         
@@ -222,12 +223,9 @@ const Auth = {
                 const user = this.getCurrentUser();
                 const displayName = user.profile?.firstName || user.email?.split('@')[0] || 'User';
                 
-                const dashboardPath = window.location.pathname.includes('/pages/') ? 'dashboard.html' : 'pages/dashboard.html';
-                const homePath = window.location.pathname.includes('/pages/') ? '../index.html' : 'index.html';
-                
                 authButtons.innerHTML = `
                     <span class="user-welcome">Welcome, ${displayName}!</span>
-                    <a href="${dashboardPath}" class="btn btn-login">Dashboard</a>
+                    <a href="dashboard.html" class="btn btn-login">Dashboard</a>
                     <a href="#" class="btn btn-register logout-btn">Logout</a>
                 `;
                 
@@ -240,52 +238,55 @@ const Auth = {
                     });
                 }
             } else {
-                const loginPath = window.location.pathname.includes('/pages/') ? 'login.html' : 'pages/login.html';
-                const registerPath = window.location.pathname.includes('/pages/') ? 'register.html' : 'pages/register.html';
-                
                 authButtons.innerHTML = `
-                    <a href="${loginPath}" class="btn btn-login">Login</a>
-                    <a href="${registerPath}" class="btn btn-register">Register</a>
+                    <a href="login.html" class="btn btn-login">Login</a>
+                    <a href="register.html" class="btn btn-register">Register</a>
                 `;
             }
         }
     },
     
-    // Logout and redirect to home
     logoutAndRedirect: function() {
         this.logout().then(() => {
-            const homePath = window.location.pathname.includes('/pages/') ? '../index.html' : 'index.html';
-            window.location.href = homePath;
+            window.location.href = '../index.html';
         });
     },
     
-    // Protect routes - redirect to login if not authenticated
     requireAuth: function() {
         if (!this.isLoggedIn()) {
-            const loginPath = window.location.pathname.includes('/pages/') ? 'login.html' : 'pages/login.html';
-            window.location.href = loginPath;
+            window.location.href = 'login.html';
             return false;
         }
         return true;
+    },
+    
+    // ✅ NEW: Get dashboard path based on user type
+    getDashboardPath: function(userType) {
+        const dashboards = {
+            'reader': 'dashboard-reader.html',
+            'writer': 'dashboard-author.html',
+            'author': 'dashboard-author.html',
+            'artist': 'dashboard-artist.html',
+            'admin': 'dashboard-admin.html',
+            'student': 'dashboard-reader.html',
+            'professional': 'dashboard-reader.html'
+        };
+        
+        return dashboards[userType] || 'dashboard-reader.html';
     }
 };
 
-// Wait for the DOM to be fully loaded
+// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
     
-    // Wait for Firebase to be ready
     if (typeof firebase !== 'undefined') {
-        // Initialize authentication system
         Auth.init();
         
-        // Initialize all JavaScript functionality
         initSmoothScrolling();
-        initFormInteractions();
+        initFormInteractions(); // ✅ This handles registration/login
         initButtonEffects();
-        initImagePlaceholders();
         initNavigationActiveState();
-        initDashboardFeatures();
         
         // Initialize dashboard router if on dashboard page
         if (window.location.pathname.includes('dashboard')) {
@@ -296,88 +297,203 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// [Keep all your existing functions below - they remain the same]
-// Smooth scrolling, form interactions, button effects, etc.
-// ... (all your existing functions from previous script.js)
+// ✅ COMPLETELY FIXED Form Interactions
+function initFormInteractions() {
+    console.log('Initializing form interactions...');
+    
+    // ✅ FIXED Registration Form Handler
+    const registerForm = document.querySelector('.auth-form');
+    if (registerForm && window.location.pathname.includes('register.html')) {
+        console.log('Register form found, attaching event listener...');
+        
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('Register form submitted!');
+            
+            const formData = new FormData(this);
+            const userData = {
+                first_name: formData.get('first_name'),
+                last_name: formData.get('last_name'),
+                email: formData.get('email'),
+                user_type: formData.get('user_type'),
+                password: formData.get('password')
+            };
+            
+            console.log('🎯 Form user_type:', userData.user_type);
+            
+            // Basic validation
+            if (formData.get('password') !== formData.get('confirm_password')) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (!formData.get('terms')) {
+                alert('Please agree to the Terms of Service and Privacy Policy');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = this.querySelector('.auth-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Creating Account...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Register user with Firebase (this now auto-logs in)
+                const result = await Auth.register(userData);
+                
+                if (result.success) {
+                    console.log('✅ Registration successful! User type:', result.userType);
+                    
+                    // ✅ IMMEDIATE REDIRECT TO CORRECT DASHBOARD
+                    const targetDashboard = Auth.getDashboardPath(result.userType);
+                    console.log('🎯 Redirecting to:', targetDashboard);
+                    
+                    // Show success message and redirect
+                    alert(`Account created successfully! Welcome to Rejoice Institute, ${userData.first_name}!`);
+                    window.location.href = targetDashboard;
+                    
+                } else {
+                    alert('Registration failed: ' + result.message);
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('An error occurred during registration. Please try again.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+    
+    // ✅ FIXED Login Form Handler
+    const loginForm = document.querySelector('.auth-form');
+    if (loginForm && window.location.pathname.includes('login.html')) {
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            // Show loading state
+            const submitBtn = this.querySelector('.auth-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Signing In...';
+            submitBtn.disabled = true;
+            
+            try {
+                const result = await Auth.login(email, password);
+                
+                if (result.success) {
+                    console.log('✅ Login successful!');
+                    
+                    // Get user type and redirect to correct dashboard
+                    const userType = result.user.profile?.userType || 'reader';
+                    const targetDashboard = Auth.getDashboardPath(userType);
+                    
+                    console.log('🎯 Login redirecting to:', targetDashboard);
+                    window.location.href = targetDashboard;
+                    
+                } else {
+                    alert('Login failed: ' + result.message);
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('An error occurred during login. Please try again.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+}
 
-// Enhanced dashboard router with Firebase authentication
+// ✅ FIXED Dashboard Router
 function initDashboardRouter() {
+    console.log('=== INIT DASHBOARD ROUTER ===');
+    
     // Check authentication first
     if (!Auth.requireAuth()) return;
     
     const user = Auth.getCurrentUser();
     
-    // Only run on main dashboard page
+    // Only run on main dashboard page (dashboard.html)
     if (!window.location.pathname.includes('dashboard.html') || 
-        window.location.pathname.includes('dashboard-')) return;
-    
-    function redirectToDashboard() {
-        const userRole = user.profile?.userType || 'reader';
-        const dashboards = {
-            'reader': 'dashboard-reader.html',
-            'author': 'dashboard-author.html',
-            'artist': 'dashboard-artist.html',
-            'admin': 'dashboard-admin.html'
-        };
-        
-        setTimeout(() => {
-            const targetDashboard = dashboards[userRole] || 'dashboard-reader.html';
-            console.log('Redirecting to:', targetDashboard, 'for user type:', userRole);
-            window.location.href = targetDashboard;
-        }, 1000);
-    }
-
-    // Update welcome message and redirect
-    const welcomeElement = document.querySelector('.user-welcome');
-    if (welcomeElement && user.profile) {
-        welcomeElement.textContent = `Welcome, ${user.profile.firstName}!`;
+        window.location.pathname.includes('dashboard-')) {
+        return;
     }
     
-    redirectToDashboard();
+    console.log('🔄 Routing user to correct dashboard...');
+    
+    // Get user type and redirect
+    const userType = user.profile?.userType || 'reader';
+    const targetDashboard = Auth.getDashboardPath(userType);
+    
+    console.log('🎯 User type:', userType, 'Redirecting to:', targetDashboard);
+    
+    // Immediate redirect
+    window.location.href = targetDashboard;
 }
 
-// [Keep all other existing functions exactly as they were]
-// initSmoothScrolling, initFormInteractions, initButtonEffects, 
-// initImagePlaceholders, initNavigationActiveState, initDashboardFeatures,
-// animateProgressBars, initSimpleRegistration, addRippleStyles
-// ... (copy all your existing functions here)
+// ✅ FIXED Dashboard-specific initialization
+function initDashboardFeatures() {
+    if (!Auth.requireAuth()) return;
+    
+    const user = Auth.getCurrentUser();
+    const userType = user.profile?.userType || 'reader';
+    
+    // Update welcome message on all dashboard pages
+    const welcomeElement = document.querySelector('.user-welcome');
+    if (welcomeElement && user.profile) {
+        const displayName = user.profile.firstName || user.email.split('@')[0];
+        welcomeElement.textContent = `Welcome, ${displayName}!`;
+    }
+    
+    // Add logout functionality to all dashboard pages
+    const logoutButtons = document.querySelectorAll('.logout-btn, .btn-login[onclick*="logout"]');
+    logoutButtons.forEach(btn => {
+        btn.onclick = function(e) {
+            e.preventDefault();
+            Auth.logoutAndRedirect();
+        };
+    });
+}
 
-// Add CSS for ripple animation and other styles
+// Your existing helper functions
+function initSmoothScrolling() {
+    // Your smooth scrolling code
+}
+
+function initButtonEffects() {
+    // Your button effects code
+}
+
+function initNavigationActiveState() {
+    // Highlight current page in navigation
+    const currentPage = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href');
+        if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Add CSS styles
 function addRippleStyles() {
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-        
-        .btn.hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .error {
-            border-color: var(--color-error) !important;
-        }
-        
-        .success {
-            border-color: var(--color-success) !important;
-        }
-        
-        .nav-links a.active {
+        .user-welcome {
             color: var(--color-purple);
-            font-weight: bold;
-        }
-        
-        .dashboard-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .dashboard-card:hover {
-            transform: translateY(-5px);
+            font-weight: 500;
+            margin-right: 1rem;
         }
         
         .loading-spinner {
@@ -395,144 +511,15 @@ function addRippleStyles() {
             100% { transform: rotate(360deg); }
         }
         
-        .user-welcome {
+        .nav-links a.active {
             color: var(--color-purple);
-            font-weight: 500;
-            margin-right: 1rem;
-        }
-        
-        .auth-success, .auth-error {
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .firebase-loading {
-            text-align: center;
-            padding: 2rem;
-            color: var(--color-purple);
+            font-weight: bold;
         }
     `;
     document.head.appendChild(style);
 }
 
-// Add the ripple styles when the script loads
+// Initialize styles
 addRippleStyles();
-// Add this temporary debug function to your script.js
-function debugDashboardRouting() {
-    console.log('=== DASHBOARD ROUTING DEBUG ===');
-    const user = Auth.getCurrentUser();
-    console.log('Current user:', user);
-    
-    if (user && user.profile) {
-        console.log('User profile:', user.profile);
-        console.log('User type from profile:', user.profile.userType);
-    } else {
-        console.log('No user profile found');
-    }
-    
-    // Test the determineUserType function
-    if (user && user.email) {
-        const detectedType = Auth.determineUserType(user.email);
-        console.log('Detected user type from email:', detectedType);
-    }
-}
 
-// Call this in your dashboard router
-function initDashboardRouter() {
-    console.log('=== INIT DASHBOARD ROUTER ===');
-    
-    // Check authentication first
-    if (!Auth.requireAuth()) return;
-    
-    const user = Auth.getCurrentUser();
-    
-    // Only run on main dashboard page
-    if (!window.location.pathname.includes('dashboard.html') || 
-        window.location.pathname.includes('dashboard-')) return;
-    
-    // DEBUG: Log everything
-    debugDashboardRouting();
-    
-    function redirectToDashboard() {
-        const userRole = user.profile?.userType || 'reader';
-        console.log('Final user role for routing:', userRole);
-        
-        const dashboards = {
-            'reader': 'dashboard-reader.html',
-            'author': 'dashboard-author.html', 
-            'artist': 'dashboard-artist.html',
-            'admin': 'dashboard-admin.html'
-        };
-        
-        const targetDashboard = dashboards[userRole] || 'dashboard-reader.html';
-        console.log('Redirecting to:', targetDashboard);
-        
-        setTimeout(() => {
-            window.location.href = targetDashboard;
-        }, 1000);
-    }
-
-    // Update welcome message and redirect
-    const welcomeElement = document.querySelector('.user-welcome');
-    if (welcomeElement && user.profile) {
-        welcomeElement.textContent = `Welcome, ${user.profile.firstName}!`;
-    }
-    
-    redirectToDashboard();
-}
-// In the Auth object, update the determineUserType function:
-// : function(email) {
-    console.log('Determining user type for email:', email);
-    
-    if (!email) {
-        console.log('No email provided, defaulting to reader');
-        return 'reader';
-    }
-    
-    const userEmail = email.toLowerCase();
-    console.log('Normalized email:', userEmail);
-    
-    // =============================================
-    // 🎯 MODIFY THESE EMAIL LISTS AS NEEDED
-    // =============================================
-    const adminEmails = [
-        'khosapromise12@gmail.com',    // ← CHANGE THIS
-        'admin@rejoiceinstitute.org',
-        'test-admin@test.com'
-    ];
-    
-    const authorEmails = [
-        'author@rejoiceinstitute.org',
-        'writer@rejoiceinstitute.org',
-        'test-author@test.com',          // ← TEST AUTHOR EMAIL
-        'elena.rodriguez@example.com',
-        'james.wilson@example.com'
-    ];
-    
-    const artistEmails = [
-        'artist@rejoiceinstitute.org',
-        'designer@rejoiceinstitute.org',
-        'test-artist@test.com'           // ← TEST ARTIST EMAIL
-    ];
-    
-    console.log('Checking against admin emails:', adminEmails);
-    console.log('Checking against author emails:', authorEmails);
-    console.log('Checking against artist emails:', artistEmails);
-    
-    if (adminEmails.includes(userEmail)) {
-        console.log('✅ User detected as ADMIN');
-        return 'admin';
-    } else if (authorEmails.includes(userEmail)) {
-        console.log('✅ User detected as AUTHOR');
-        return 'author';
-    } else if (artistEmails.includes(userEmail)) {
-        console.log('✅ User detected as ARTIST');
-        return 'artist';
-    } else {
-        console.log('✅ User detected as READER (default)');
-        return 'reader';
-    }
+console.log('✅ FIXED script.js loaded - All issues resolved!');

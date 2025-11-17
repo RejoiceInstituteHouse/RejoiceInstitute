@@ -2346,3 +2346,87 @@ footer {
     gap: 4rem;
     align-items: center;
 }
+/* ===== NEW EARTHY COLOR SCHEME ===== */
+:root {
+  --primary-white: #FFFFFF;
+  --rich-black: #1A1A1A;
+  --warm-gold: #D4AF37;
+  --earth-brown: #8B4513;
+  --light-beige: #F5F5DC;
+  --soft-cream: #FDF5E6;
+}
+
+/* Global Background & Text */
+body {
+  background-color: var(--primary-white) !important;
+  color: var(--rich-black) !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Headers & Navigation */
+header, nav, .navbar {
+  background-color: var(--primary-white) !important;
+  border-bottom: 1px solid var(--light-beige) !important;
+}
+
+/* Buttons & CTAs */
+.btn, button, .button, input[type="submit"] {
+  background-color: var(--warm-gold) !important;
+  color: var(--rich-black) !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 10px 20px !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn:hover, button:hover {
+  background-color: var(--earth-brown) !important;
+  color: var(--primary-white) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Cards & Containers */
+.card, .container, .section, div[class*="box"], div[class*="container"] {
+  background-color: var(--primary-white) !important;
+  border: 1px solid var(--light-beige) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+}
+
+/* Links */
+a {
+  color: var(--earth-brown) !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+a:hover {
+  color: var(--warm-gold) !important;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--rich-black) !important;
+  font-weight: 600 !important;
+}
+
+/* Special Highlights */
+.highlight, .featured, .important {
+  background-color: var(--light-beige) !important;
+  border-left: 4px solid var(--warm-gold) !important;
+}
+
+/* Forms */
+input, textarea, select {
+  background-color: var(--primary-white) !important;
+  border: 1px solid var(--light-beige) !important;
+  border-radius: 4px !important;
+  color: var(--rich-black) !important;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--warm-gold) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
+}

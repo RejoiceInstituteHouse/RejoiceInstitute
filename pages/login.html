@@ -3,24 +3,442 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Rejoice Institute House | Login</title>
-    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== LOGIN PAGE SPECIFIC STYLES ===== */
+        :root {
+            --primary-white: #FFFFFF;
+            --rich-black: #1A1A1A;
+            --warm-gold: #D4AF37;
+            --earth-brown: #8B4513;
+            --light-beige: #F5F5DC;
+            --soft-cream: #FDF5E6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-white);
+            color: var(--rich-black);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background: var(--primary-white);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-beige);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: var(--warm-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--rich-black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: var(--rich-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--warm-gold);
+            background: var(--soft-cream);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--earth-brown);
+            border: 2px solid var(--earth-brown);
+        }
+
+        .btn-register {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* ===== AUTH CONTAINER ===== */
+        .auth-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+            align-items: center;
+            gap: 4rem;
+            padding: 2rem 0;
+            flex: 1;
+        }
+
+        .auth-card {
+            background: var(--primary-white);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid var(--light-beige);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--rich-black);
+        }
+
+        .auth-header p {
+            color: var(--rich-black);
+            opacity: 0.8;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .auth-form {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--rich-black);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--light-beige);
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--warm-gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password {
+            color: var(--earth-brown);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .auth-submit {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== SOCIAL AUTH ===== */
+        .auth-divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .auth-divider span {
+            background: var(--primary-white);
+            padding: 0 1rem;
+            color: var(--rich-black);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .auth-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--light-beige);
+            z-index: -1;
+        }
+
+        .social-auth {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-social {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--light-beige);
+            background: var(--primary-white);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        .btn-social:hover {
+            border-color: var(--warm-gold);
+            transform: translateY(-2px);
+        }
+
+        .auth-footer {
+            text-align: center;
+        }
+
+        .auth-footer a {
+            color: var(--earth-brown);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== WELCOME SECTION ===== */
+        .auth-welcome {
+            background: linear-gradient(135deg, var(--soft-cream) 0%, var(--primary-white) 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid var(--light-beige);
+        }
+
+        .welcome-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: var(--rich-black);
+        }
+
+        .welcome-features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .feature {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--warm-gold);
+            flex-shrink: 0;
+        }
+
+        .feature h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--rich-black);
+        }
+
+        .feature p {
+            color: var(--rich-black);
+            opacity: 0.8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--rich-black);
+            color: var(--primary-white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .auth-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .auth-card {
+                padding: 2rem;
+            }
+
+            .social-auth {
+                flex-direction: column;
+            }
+
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                text-align: center;
+            }
+
+            .auth-card {
+                padding: 1.5rem;
+            }
+
+            .auth-welcome {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
-                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                <div class="logo-container">
+                    <div class="logo-img">RIH</div>
+                    <div class="logo">
+                        <a href="index.html">REJOICE INSTITUTE HOUSE</a>
+                    </div>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="books.html">Books</a></li>
                     <li><a href="hub.html">Hub</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="authors.html">Authors & Creatives</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
                 </ul>
                 <div class="auth-buttons">
                     <a href="login.html" class="btn btn-login">Login</a>
@@ -36,7 +454,7 @@
             <div class="auth-card">
                 <div class="auth-header">
                     <h1>Welcome Back</h1>
-                    <p>Sign in to your account to continue your creative journey</p>
+                    <p>Sign in to your account to continue your reading journey</p>
                 </div>
 
                 <form class="auth-form">
@@ -84,7 +502,7 @@
 
             <div class="auth-welcome">
                 <div class="welcome-content">
-                    <h2>Rejoin Your Creative Community</h2>
+                    <h2>Rejoin Your Reading Community</h2>
                     <div class="welcome-features">
                         <div class="feature">
                             <span class="feature-icon">📚</span>
@@ -94,17 +512,17 @@
                             </div>
                         </div>
                         <div class="feature">
-                            <span class="feature-icon">✍️</span>
+                            <span class="feature-icon">❤️</span>
                             <div>
-                                <h3>Manage Submissions</h3>
-                                <p>Track your manuscript submissions and editor feedback</p>
+                                <h3>Saved Favorites</h3>
+                                <p>Quickly access your bookmarked titles and favorite authors</p>
                             </div>
                         </div>
                         <div class="feature">
                             <span class="feature-icon">🤝</span>
                             <div>
-                                <h3>Connect with Peers</h3>
-                                <p>Join discussions and collaborate with other creators</p>
+                                <h3>Connect with Readers</h3>
+                                <p>Join discussions and share insights with fellow book lovers</p>
                             </div>
                         </div>
                     </div>
@@ -116,14 +534,10 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2023 Rejoice Institute House. All rights reserved.</p>
+            <p>&copy; 2025 Rejoice Institute House. All rights reserved.</p>
         </div>
     </footer>
-<!-- Add these BEFORE your script.js -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-<script src="firebase-config.js"></script>
-<script src="script.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>

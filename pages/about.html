@@ -3,24 +3,520 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Rejoice Institute House | About</title>
-    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ABOUT PAGE SPECIFIC STYLES ===== */
+        :root {
+            --primary-white: #FFFFFF;
+            --rich-black: #1A1A1A;
+            --warm-gold: #D4AF37;
+            --earth-brown: #8B4513;
+            --light-beige: #F5F5DC;
+            --soft-cream: #FDF5E6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-white);
+            color: var(--rich-black);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background: var(--primary-white);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-beige);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: var(--warm-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--rich-black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: var(--rich-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--warm-gold);
+            background: var(--soft-cream);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--earth-brown);
+            border: 2px solid var(--earth-brown);
+        }
+
+        .btn-register {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* ===== ABOUT PAGE HERO ===== */
+        .page-header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            background: linear-gradient(135deg, var(--soft-cream) 0%, var(--primary-white) 100%);
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--rich-black);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--rich-black);
+            opacity: 0.9;
+        }
+
+        /* ===== MISSION STATEMENT SECTION ===== */
+        .mission-statement {
+            background: var(--primary-white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .mission-statement h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--rich-black);
+        }
+
+        .mission-box {
+            background: var(--soft-cream);
+            padding: 3rem;
+            border-radius: 12px;
+            border-left: 6px solid var(--warm-gold);
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .mission-box p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--rich-black);
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .mission-author {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--earth-brown);
+            font-size: 1.1rem;
+        }
+
+        /* ===== MISSION SECTION ===== */
+        .about-mission {
+            padding: 4rem 0;
+            background: var(--primary-white);
+        }
+
+        .mission-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mission-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--rich-black);
+        }
+
+        .mission-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--rich-black);
+            opacity: 0.9;
+        }
+
+        .mission-image {
+            text-align: center;
+        }
+
+        .logo-image {
+            max-width: 300px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        /* ===== VALUES SECTION ===== */
+        .about-values {
+            padding: 4rem 0;
+            background: var(--soft-cream);
+        }
+
+        .about-values h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--rich-black);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: var(--primary-white);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--light-beige);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--rich-black);
+        }
+
+        .value-card p {
+            color: var(--rich-black);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* ===== TEAM SECTION ===== */
+        .about-team {
+            padding: 4rem 0;
+            background: var(--primary-white);
+        }
+
+        .about-team h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--rich-black);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: var(--primary-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--light-beige);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            background: var(--warm-gold);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .team-member h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--rich-black);
+        }
+
+        .member-role {
+            color: var(--warm-gold);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .member-bio {
+            color: var(--rich-black);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* ===== MILESTONES SECTION ===== */
+        .about-milestones {
+            padding: 4rem 0;
+            background: var(--soft-cream);
+        }
+
+        .about-milestones h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--rich-black);
+        }
+
+        .milestones-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .milestones-timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--warm-gold);
+        }
+
+        .milestone {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .milestone-year {
+            background: var(--warm-gold);
+            color: var(--primary-white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+            margin-right: 2rem;
+            z-index: 2;
+        }
+
+        .milestone-content {
+            flex: 1;
+            background: var(--primary-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--light-beige);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .milestone-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--rich-black);
+        }
+
+        .milestone-content p {
+            color: var(--rich-black);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--rich-black);
+            color: var(--primary-white);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .mission-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .mission-box {
+                padding: 2rem;
+            }
+
+            .mission-box p {
+                font-size: 1.1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .milestones-timeline::before {
+                left: 20px;
+            }
+
+            .milestone-year {
+                min-width: 60px;
+                margin-right: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                text-align: center;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
-                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                <div class="logo-container">
+                    <div class="logo-img">RIH</div>
+                    <div class="logo">
+                        <a href="index.html">REJOICE INSTITUTE HOUSE</a>
+                    </div>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="books.html">Books</a></li>
                     <li><a href="hub.html">Hub</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="authors.html">Authors & Creatives</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
                 </ul>
                 <div class="auth-buttons">
                     <a href="login.html" class="btn btn-login">Login</a>
@@ -31,113 +527,136 @@
     </header>
 
     <!-- Main About Content -->
-    <main class="container">
+    <main>
         <!-- Hero Section -->
         <section class="page-header">
-            <h1>Our Story</h1>
-            <p>For over a year, Rejoice Institute House has been a beacon for literary excellence and creative innovation.</p>
+            <div class="container">
+                <h1>Our Story</h1>
+                <p>For less than a year, Rejoice Institute House has been a beacon for literary excellence and creative innovation.</p>
+            </div>
+        </section>
+
+        <!-- Mission Statement Section -->
+        <section class="mission-statement">
+            <div class="container">
+                <h2>Our Mission Statement</h2>
+                <div class="mission-box">
+                    <p>"To cultivate a sanctuary where stories find their voice, connecting readers and writers through transformative literature that inspires growth, joy, and meaningful conversation."</p>
+                    <div class="mission-author">— Rejoice Institute House</div>
+                </div>
+            </div>
         </section>
 
         <!-- Mission Section -->
         <section class="about-mission">
-            <div class="mission-content">
-                <div class="mission-text">
-                    <h2>Our Mission</h2>
-                    <p>At Rejoice Institute House, we believe in the transformative power of storytelling. Our mission is to cultivate, publish, and celebrate works that challenge perspectives, inspire change, and connect humanity through the written word.</p>
-                    <p>We are committed to discovering emerging voices while honoring established literary traditions, creating a bridge between generations of readers and writers.</p>
+            <div class="container">
+                <div class="mission-content">
+                    <div class="mission-text">
+                        <h2>Our Mission</h2>
+                        <p>At Rejoice Institute House, we believe in the transformative power of storytelling. Our mission is to cultivate, publish, and celebrate works that challenge perspectives, inspire change, and connect humanity through the written word.</p>
+                        <p>We are committed to discovering emerging voices while honoring established literary traditions, creating a bridge between generations of readers and writers.</p>
+                    </div>
+                    <div class="mission-image">
+                        <div class="logo-image-placeholder" style="width: 300px; height: 300px; background: var(--light-beige); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--warm-gold); font-size: 1.2rem;">
+                            Company Logo Image
+                        </div>
+                    </div>
                 </div>
-                <div class="mission-image">
-    <img src="../images/logo.png" alt="Rejoice Institute House Logo" class="logo-image">
-</div>
             </div>
         </section>
 
         <!-- Values Section -->
         <section class="about-values">
-            <h2>Our Values</h2>
-            <div class="values-grid">
-                <!-- Value 1 -->
-                <div class="value-card">
-                    <div class="value-icon">✍️</div>
-                    <h3>Creative Integrity</h3>
-                    <p>We honor the authentic voice of every creator, ensuring their vision remains intact from manuscript to published work.</p>
-                </div>
+            <div class="container">
+                <h2>Our Values</h2>
+                <div class="values-grid">
+                    <!-- Value 1 -->
+                    <div class="value-card">
+                        <div class="value-icon">✍️</div>
+                        <h3>Creative Integrity</h3>
+                        <p>We honor the authentic voice of every creator, ensuring their vision remains intact from manuscript to published work.</p>
+                    </div>
 
-                <!-- Value 2 -->
-                <div class="value-card">
-                    <div class="value-icon">🌍</div>
-                    <h3>Diverse Perspectives</h3>
-                    <p>We actively seek and amplify voices from all backgrounds, cultures, and experiences to enrich our literary landscape.</p>
-                </div>
+                    <!-- Value 2 -->
+                    <div class="value-card">
+                        <div class="value-icon">🌍</div>
+                        <h3>Diverse Perspectives</h3>
+                        <p>We actively seek and amplify voices from all backgrounds, cultures, and experiences to enrich our literary landscape.</p>
+                    </div>
 
-                <!-- Value 3 -->
-                <div class="value-card">
-                    <div class="value-icon">🤝</div>
-                    <h3>Community First</h3>
-                    <p>We build lasting relationships with our authors, readers, and partners, creating a supportive ecosystem for literature.</p>
-                </div>
+                    <!-- Value 3 -->
+                    <div class="value-card">
+                        <div class="value-icon">🤝</div>
+                        <h3>Community First</h3>
+                        <p>We build lasting relationships with our authors, readers, and partners, creating a supportive ecosystem for literature.</p>
+                    </div>
 
-                <!-- Value 4 -->
-                <div class="value-card">
-                    <div class="value-icon">💡</div>
-                    <h3>Innovation</h3>
-                    <p>We embrace new storytelling formats and technologies while preserving the timeless art of literature.</p>
+                    <!-- Value 4 -->
+                    <div class="value-card">
+                        <div class="value-icon">💡</div>
+                        <h3>Innovation</h3>
+                        <p>We embrace new storytelling formats and technologies while preserving the timeless art of literature.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Team Section -->
         <section class="about-team">
-            <h2>Our Leadership</h2>
-            <div class="team-grid">
-                <!-- Team Member 1 -->
-                <div class="team-member">
-                    <div class="member-photo"></div>
-                    <h3>Promise Khosa</h3>
-                    <p class="member-role">Founder & Executive Director</p>
-                    <p class="member-bio">With a year in publishing, and a decade of writing experience, Mr. Khosa established Rejoice Institute House to create a home for literary innovation, a bridge from writing to industry knowledge.</p>
-                </div>
+            <div class="container">
+                <h2>Our Leadership</h2>
+                <div class="team-grid">
+                    <!-- Team Member 1 -->
+                    <div class="team-member">
+                        <div class="member-photo">PK</div>
+                        <h3>Promise Khosa</h3>
+                        <p class="member-role">Founder & Executive Director</p>
+                        <p class="member-bio">With a year in publishing, and a decade of writing experience, Mr. Khosa established Rejoice Institute House to create a home for literary innovation, a bridge from writing to industry knowledge.</p>
+                    </div>
 
-                <!-- Team Member 2 -->
-                <div class="team-member">
-                    <div class="member-photo"></div>
-                    <h3>Tsakani Joyce</h3>
-                    <p class="member-role">Editorial Director</p>
-                    <p class="member-bio">Former cleaner turned literary curator, Tsakani brings a keen eye for compelling narratives. a writing experience unlike any other.</p>
+                    <!-- Team Member 2 -->
+                    <div class="team-member">
+                        <div class="member-photo">TJ</div>
+                        <h3>Tsakani Joyce</h3>
+                        <p class="member-role">Editorial Director</p>
+                        <p class="member-bio">Former cleaner turned literary curator, Tsakani brings a keen eye for compelling narratives and a writing experience unlike any other.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Milestones Section -->
         <section class="about-milestones">
-            <h2>Our Journey</h2>
-            <div class="milestones-timeline">
-                <div class="milestone">
-                    <div class="milestone-year">2002</div>
-                    <div class="milestone-content">
-                        <h3>Foundation</h3>
-                        <p>Rejoice Institute House was founded with the vision of creating a literary sanctuary for innovative voices, a place of access for creatives to see, experience, and successfully publishing their creative.</p>
+            <div class="container">
+                <h2>Our Journey</h2>
+                <div class="milestones-timeline">
+                    <div class="milestone">
+                        <div class="milestone-year">2024</div>
+                        <div class="milestone-content">
+                            <h3>Foundation</h3>
+                            <p>Rejoice Institute House was founded with the vision of creating a literary sanctuary for innovative voices, a place of access for creatives to see, experience, and successfully publish their creative works.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="milestone">
-                    <div class="milestone-year">2010</div>
-                    <div class="milestone-content">
-                        <h3>First Bestseller</h3>
-                        <p>"Zoe" became our first New York Times bestseller, establishing our reputation for quality.</p>
+                    <div class="milestone">
+                        <div class="milestone-year">2024</div>
+                        <div class="milestone-content">
+                            <h3>First Publications</h3>
+                            <p>"Zoe" & "The Challenge" became our first publications, establishing our reputation for quality storytelling and reader engagement.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="milestone">
-                    <div class="milestone-year">2035</div>
-                    <div class="milestone-content">
-                        <h3>Digital Expansion</h3>
-                        <p>We aim to launch our digital publishing platform, reaching readers in over 50 countries worldwide.</p>
+                    <div class="milestone">
+                        <div class="milestone-year">2025</div>
+                        <div class="milestone-content">
+                            <h3>Community Hub Launch</h3>
+                            <p>Established our community programs and reading hub to nurture the next generation of readers and storytellers.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="milestone">
-                    <div class="milestone-year">2023</div>
-                    <div class="milestone-content">
-                        <h3>Community Hub</h3>
-                        <p>Established our community programs and writing workshops to nurture the next generation of storytellers.</p>
+                    <div class="milestone">
+                        <div class="milestone-year">Future</div>
+                        <div class="milestone-content">
+                            <h3>Digital Expansion</h3>
+                            <p>We aim to launch our digital publishing platform, reaching readers worldwide with transformative literary experiences.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,16 +666,10 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2023 Rejoice Institute House. All rights reserved.</p>
+            <p>&copy; 2025 Rejoice Institute House. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="../script.js"></script>
-<!-- Add these BEFORE your script.js -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-<script src="firebase-config.js"></script>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

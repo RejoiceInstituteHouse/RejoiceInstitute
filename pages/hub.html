@@ -3,24 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Rejoice Institute House | Hub</title>
-    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== HUB PAGE SPECIFIC STYLES ===== */
+        :root {
+            --primary-white: #FFFFFF;
+            --rich-black: #1A1A1A;
+            --warm-gold: #D4AF37;
+            --earth-brown: #8B4513;
+            --light-beige: #F5F5DC;
+            --soft-cream: #FDF5E6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-white);
+            color: var(--rich-black);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background: var(--primary-white);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-beige);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: var(--warm-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--rich-black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: var(--rich-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--warm-gold);
+            background: var(--soft-cream);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--earth-brown);
+            border: 2px solid var(--earth-brown);
+        }
+
+        .btn-register {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+        }
+
+        .btn-sage {
+            background: var(--earth-brown);
+            color: var(--primary-white);
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            background: linear-gradient(135deg, var(--soft-cream) 0%, var(--primary-white) 100%);
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--rich-black);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--rich-black);
+            opacity: 0.9;
+        }
+
+        /* ===== SERIES COLLECTION SECTION ===== */
+        .series-collection {
+            padding: 4rem 0;
+            background: var(--primary-white);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--rich-black);
+        }
+
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .series-card {
+            background: var(--primary-white);
+            border-radius: 12px;
+            border: 1px solid var(--light-beige);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .series-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .series-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--warm-gold);
+        }
+
+        .series-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--rich-black);
+        }
+
+        .series-card p {
+            color: var(--rich-black);
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* ===== NEWSLETTER & COMMUNITY SECTION ===== */
+        .newsletter-community {
+            padding: 4rem 0;
+            background: var(--soft-cream);
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .community-card {
+            background: var(--primary-white);
+            border-radius: 12px;
+            border: 1px solid var(--light-beige);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .community-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .community-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--earth-brown);
+        }
+
+        .community-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--rich-black);
+        }
+
+        .community-card p {
+            color: var(--rich-black);
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .newsletter-form {
+            background: var(--primary-white);
+            padding: 3rem;
+            border-radius: 12px;
+            border: 1px solid var(--light-beige);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .newsletter-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--rich-black);
+        }
+
+        .newsletter-form p {
+            color: var(--rich-black);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--light-beige);
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--warm-gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--rich-black);
+            color: var(--primary-white);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .series-grid,
+            .community-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .form-group {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                text-align: center;
+            }
+
+            .series-grid,
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .series-card,
+            .community-card {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
-                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                <div class="logo-container">
+                    <div class="logo-img">RIH</div>
+                    <div class="logo">
+                        <a href="index.html">REJOICE INSTITUTE HOUSE</a>
+                    </div>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="books.html">Books</a></li>
                     <li><a href="hub.html">Hub</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="authors.html">Authors & Creatives</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
                 </ul>
                 <div class="auth-buttons">
                     <a href="login.html" class="btn btn-login">Login</a>
@@ -31,91 +412,115 @@
     </header>
 
     <!-- Main Hub Content -->
-    <main class="container">
+    <main>
         <section class="page-header">
-            <h1>Community Hub</h1>
-            <p>Connect with fellow readers, discover writing tips, and explore the world of literature together.</p>
-        </section>
-
-        <!-- Featured Articles Section -->
-        <section class="hub-featured">
-            <h2>Featured Articles</h2>
-            <div class="articles-grid">
-                <!-- Article 1 -->
-                <article class="article-card">
-                    <div class="article-image"></div>
-                    <div class="article-content">
-                        <h3>The Art of Storytelling</h3>
-                        <p class="article-meta">By ****** • March 15, 2024</p>
-                        <p>Explore the timeless techniques that make stories resonate across generations and cultures.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </article>
-
-                <!-- Article 2 -->
-                <article class="article-card">
-                    <div class="article-image"></div>
-                    <div class="article-content">
-                        <h3>Writing Through Challenges</h3>
-                        <p class="article-meta">By ***** • March 12, 2024</p>
-                        <p>How established authors overcome writer's block and maintain creative momentum.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </article>
-
-                <!-- Article 3 -->
-                <article class="article-card">
-                    <div class="article-image"></div>
-                    <div class="article-content">
-                        <h3>The Future of Publishing</h3>
-                        <p class="article-meta">By Editorial Team • March 8, 2024</p>
-                        <p>Emerging trends and technologies shaping the next chapter of book publishing.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </article>
+            <div class="container">
+                <h1>Community Hub</h1>
+                <p>Connect with fellow readers, discover writing tips, and explore the world of literature together.</p>
             </div>
         </section>
 
-        <!-- Community Events Section -->
-        <section class="community-events">
-            <h2>Upcoming Events</h2>
-            <div class="events-list">
-                <!-- Event 1 -->
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="month">APR</span>
-                        <span class="day">15</span>
+        <!-- Series Collection Section -->
+        <section class="series-collection">
+            <div class="container">
+                <h2 class="section-title">Series Collection</h2>
+                <div class="series-grid">
+                    <!-- Series 1 -->
+                    <div class="series-card">
+                        <div class="series-icon">📚</div>
+                        <h3>Literary Classics</h3>
+                        <p>Timeless masterpieces that have shaped generations of readers and writers.</p>
+                        <button class="btn btn-sage">Explore</button>
                     </div>
-                    <div class="event-info">
-                        <h3>Author Meet & Greet</h3>
-                        <p class="event-time">⏰ 6:00 PM • Virtual Event</p>
-                        <p>Join bestselling author, ******* for an intimate Q&A session.</p>
+
+                    <!-- Series 2 -->
+                    <div class="series-card">
+                        <div class="series-icon">🌟</div>
+                        <h3>Emerging Voices</h3>
+                        <p>Discover breakthrough authors and fresh perspectives in contemporary literature.</p>
+                        <button class="btn btn-sage">Discover</button>
+                    </div>
+
+                    <!-- Series 3 -->
+                    <div class="series-card">
+                        <div class="series-icon">🎭</div>
+                        <h3>Drama Series</h3>
+                        <p>Compelling narratives exploring human relationships and emotional journeys.</p>
+                        <button class="btn btn-sage">Read</button>
+                    </div>
+
+                    <!-- Series 4 -->
+                    <div class="series-card">
+                        <div class="series-icon">🔍</div>
+                        <h3>Mystery Collection</h3>
+                        <p>Gripping tales of suspense, investigation, and unexpected revelations.</p>
+                        <button class="btn btn-sage">Solve</button>
+                    </div>
+
+                    <!-- Series 5 -->
+                    <div class="series-card">
+                        <div class="series-icon">💫</div>
+                        <h3>Future Releases</h3>
+                        <p>Upcoming series and anticipated works from our publishing pipeline.</p>
+                        <button class="btn btn-sage">Preview</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter & Community Section -->
+        <section class="newsletter-community">
+            <div class="container">
+                <h2 class="section-title">Community & Newsletter</h2>
+                <div class="community-grid">
+                    <!-- Community 1 -->
+                    <div class="community-card">
+                        <div class="community-icon">👥</div>
+                        <h3>Reader Groups</h3>
+                        <p>Join themed reading circles and discuss books with like-minded literature lovers.</p>
+                        <button class="btn btn-sage">Join</button>
+                    </div>
+
+                    <!-- Community 2 -->
+                    <div class="community-card">
+                        <div class="community-icon">💬</div>
+                        <h3>Discussion Forums</h3>
+                        <p>Share insights, ask questions, and engage in meaningful literary conversations.</p>
+                        <button class="btn btn-sage">Participate</button>
+                    </div>
+
+                    <!-- Community 3 -->
+                    <div class="community-card">
+                        <div class="community-icon">📝</div>
+                        <h3>Writing Tips</h3>
+                        <p>Access resources and guidance for aspiring writers and seasoned authors alike.</p>
+                        <button class="btn btn-sage">Learn</button>
+                    </div>
+
+                    <!-- Community 4 -->
+                    <div class="community-card">
+                        <div class="community-icon">🎉</div>
+                        <h3>Events & Workshops</h3>
+                        <p>Participate in author meetups, writing workshops, and literary celebrations.</p>
+                        <button class="btn btn-sage">Attend</button>
+                    </div>
+
+                    <!-- Community 5 -->
+                    <div class="community-card">
+                        <div class="community-icon">📰</div>
+                        <h3>Monthly Digest</h3>
+                        <p>Curated content featuring book reviews, author interviews, and industry news.</p>
+                        <button class="btn btn-sage">Subscribe</button>
                     </div>
                 </div>
 
-                <!-- Event 2 -->
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="month">APR</span>
-                        <span class="day">22</span>
-                    </div>
-                    <div class="event-info">
-                        <h3>Writing Workshop</h3>
-                        <p class="event-time">⏰ 2:00 PM • Main Library</p>
-                        <p>Learn character development techniques with award-winning writer ******.</p>
-                    </div>
-                </div>
-
-                <!-- Event 3 -->
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="month">MAY</span>
-                        <span class="day">05</span>
-                    </div>
-                    <div class="event-info">
-                        <h3>Book Club Discussion</h3>
-                        <p class="event-time">⏰ 7:00 PM • Coffee Corner</p>
-                        <p>Monthly book club meeting discussing "The Silent Symphony" by ******.</p>
+                <!-- Newsletter Signup -->
+                <div class="newsletter-form">
+                    <h3>Stay Connected</h3>
+                    <p>Subscribe to our newsletter for updates on new releases, events, and community features.</p>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Enter your email address">
+                        <button class="btn btn-register">Subscribe</button>
                     </div>
                 </div>
             </div>
@@ -125,14 +530,10 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2023 Rejoice Institute House. All rights reserved.</p>
+            <p>&copy; 2025 Rejoice Institute House. All rights reserved.</p>
         </div>
     </footer>
-<!-- Add these BEFORE your script.js -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-<script src="firebase-config.js"></script>
-<script src="script.js"></script>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -6,11 +6,11 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Rejoice Institute House | Register</title>
+    <title>Rejoice Institute House | Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ===== REGISTER PAGE SPECIFIC STYLES ===== */
+        /* ===== DASHBOARD SPECIFIC STYLES ===== */
         :root {
             --primary-white: #FFFFFF;
             --rich-black: #1A1A1A;
@@ -18,6 +18,7 @@
             --earth-brown: #8B4513;
             --light-beige: #F5F5DC;
             --soft-cream: #FDF5E6;
+            --success-green: #27ae60;
         }
 
         * {
@@ -31,9 +32,6 @@
             background-color: var(--primary-white);
             color: var(--rich-black);
             line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         .container {
@@ -101,7 +99,8 @@
             border-radius: 5px;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--warm-gold);
             background: var(--soft-cream);
         }
@@ -109,6 +108,12 @@
         .auth-buttons {
             display: flex;
             gap: 1rem;
+            align-items: center;
+        }
+
+        .user-welcome {
+            font-weight: 500;
+            color: var(--earth-brown);
         }
 
         .btn {
@@ -140,250 +145,280 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        /* ===== AUTH CONTAINER ===== */
-        .auth-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 80vh;
-            align-items: center;
-            gap: 4rem;
+        /* ===== DASHBOARD CONTENT ===== */
+        .dashboard {
             padding: 2rem 0;
-            flex: 1;
         }
 
-        .auth-card {
-            background: var(--primary-white);
-            padding: 3rem;
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--soft-cream) 0%, var(--primary-white) 100%);
+            padding: 2rem;
             border-radius: 12px;
             border: 1px solid var(--light-beige);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        .auth-header {
-            text-align: center;
             margin-bottom: 2rem;
-        }
-
-        .auth-header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--rich-black);
-        }
-
-        .auth-header p {
-            color: var(--rich-black);
-            opacity: 0.8;
-        }
-
-        /* ===== FORM STYLES ===== */
-        .auth-form {
-            margin-bottom: 2rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--rich-black);
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--light-beige);
-            border-radius: 5px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--warm-gold);
-            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
-        }
-
-        .password-requirements {
-            background: var(--soft-cream);
-            padding: 1rem;
-            border-radius: 5px;
-            margin-top: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        .password-requirements p {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--rich-black);
-        }
-
-        .password-requirements ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .password-requirements li {
-            margin-bottom: 0.25rem;
-            color: var(--rich-black);
-            opacity: 0.8;
-        }
-
-        .form-options {
-            margin-bottom: 1.5rem;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-
-        .checkbox-label a {
-            color: var(--earth-brown);
-            text-decoration: none;
-        }
-
-        .checkbox-label a:hover {
-            text-decoration: underline;
-        }
-
-        .auth-submit {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* ===== SOCIAL AUTH ===== */
-        .auth-divider {
-            text-align: center;
-            margin: 2rem 0;
             position: relative;
+            overflow: hidden;
         }
 
-        .auth-divider span {
-            background: var(--primary-white);
-            padding: 0 1rem;
-            color: var(--rich-black);
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        .auth-divider::before {
+        .welcome-banner::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 0;
+            top: 0;
             right: 0;
-            height: 1px;
-            background: var(--light-beige);
-            z-index: -1;
+            width: 200px;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23D4AF37" opacity="0.1"><path d="M30,20 Q50,0 70,20 T110,20" stroke="none"/></svg>') no-repeat;
         }
 
-        .social-auth {
+        .welcome-banner h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--rich-black);
+        }
+
+        .welcome-banner p {
+            font-size: 1.1rem;
+            color: var(--rich-black);
+            opacity: 0.8;
+            max-width: 600px;
+        }
+
+        /* Free Book Offer */
+        .free-book-offer {
+            background: linear-gradient(135deg, var(--warm-gold) 0%, var(--earth-brown) 100%);
+            color: var(--primary-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .offer-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .claim-btn {
+            background: var(--primary-white);
+            color: var(--earth-brown);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .claim-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Dashboard Tabs */
+        .dashboard-tabs {
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--light-beige);
+            padding-bottom: 1rem;
         }
 
-        .btn-social {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--light-beige);
-            background: var(--primary-white);
-            border-radius: 5px;
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            color: var(--rich-black);
+        }
+
+        .tab-btn.active {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: var(--soft-cream);
+        }
+
+        /* Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .book-card {
+            background: var(--primary-white);
+            border-radius: 12px;
+            border: 1px solid var(--light-beige);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .book-cover {
+            height: 200px;
+            background: var(--soft-cream);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
+            overflow: hidden;
+            position: relative;
         }
 
-        .btn-social:hover {
-            border-color: var(--warm-gold);
-            transform: translateY(-2px);
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .auth-footer {
-            text-align: center;
+        .book-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--success-green);
+            color: var(--primary-white);
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        .auth-footer a {
-            color: var(--earth-brown);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .auth-footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== WELCOME SECTION ===== */
-        .auth-welcome {
-            background: linear-gradient(135deg, var(--soft-cream) 0%, var(--primary-white) 100%);
-            padding: 3rem;
-            border-radius: 12px;
-            border: 1px solid var(--light-beige);
-        }
-
-        .welcome-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
+        .book-badge.free {
+            background: var(--warm-gold);
             color: var(--rich-black);
         }
 
-        .welcome-features {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+        .book-badge.exclusive {
+            background: var(--earth-brown);
+            color: var(--primary-white);
         }
 
-        .feature {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
+        .book-info {
+            padding: 1.5rem;
         }
 
-        .feature-icon {
-            font-size: 2rem;
-            color: var(--warm-gold);
-            flex-shrink: 0;
-        }
-
-        .feature h3 {
+        .book-info h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 0.5rem;
             color: var(--rich-black);
         }
 
-        .feature p {
-            color: var(--rich-black);
-            opacity: 0.8;
+        .author {
+            color: var(--earth-brown);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
             font-size: 0.95rem;
-            line-height: 1.5;
+        }
+
+        .genre {
+            color: var(--rich-black);
+            opacity: 0.7;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-read {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-preview {
+            background: transparent;
+            color: var(--earth-brown);
+            border: 1px solid var(--earth-brown);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-read:hover,
+        .btn-preview:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            background: var(--soft-cream);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--light-beige);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--warm-gold);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--rich-black);
+            opacity: 0.7;
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
         }
 
         /* ===== FOOTER ===== */
@@ -392,7 +427,7 @@
             color: var(--primary-white);
             padding: 2rem 0;
             text-align: center;
-            margin-top: auto;
+            margin-top: 3rem;
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
@@ -406,21 +441,22 @@
                 gap: 1rem;
             }
 
-            .auth-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .welcome-banner h1 {
+                font-size: 1.8rem;
             }
 
-            .auth-card {
-                padding: 2rem;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .social-auth {
+            .free-book-offer {
                 flex-direction: column;
+                text-align: center;
+            }
+
+            .dashboard-tabs {
+                justify-content: center;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
             }
         }
 
@@ -439,13 +475,22 @@
                 text-align: center;
             }
 
-            .auth-card {
-                padding: 1.5rem;
+            .books-grid {
+                grid-template-columns: 1fr;
             }
 
-            .auth-welcome {
-                padding: 2rem 1.5rem;
+            .book-actions {
+                flex-direction: column;
             }
+        }
+
+        /* Hidden class for tab content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
     </style>
 </head>
@@ -464,142 +509,154 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="books.html">Books</a></li>
                     <li><a href="hub.html">Hub</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
                 </ul>
                 <div class="auth-buttons">
-                    <a href="login.html" class="btn btn-login">Login</a>
-                    <a href="register.html" class="btn btn-register">Register</a>
+                    <span class="user-welcome" id="userWelcome">Welcome, Reader!</span>
+                    <a href="#" class="btn btn-login logout-btn" onclick="logout()">Logout</a>
                 </div>
             </nav>
         </div>
     </header>
 
-    <!-- Main Register Content -->
+    <!-- Main Dashboard Content -->
     <main class="container">
-        <div class="auth-container">
-            <div class="auth-card">
-                <div class="auth-header">
-                    <h1>Join Our Community</h1>
-                    <p>Create your account and start your reading journey with us</p>
+        <div class="dashboard">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <h1>Welcome back, <span id="userName">Reader</span>! 📚</h1>
+                <p>Continue your reading journey with your personalized library and discover new stories that inspire you.</p>
+            </div>
+
+            <!-- Free Book Offer -->
+            <div class="free-book-offer">
+                <div class="offer-content">
+                    <h3>🎁 Special Offer Just For You!</h3>
+                    <p>Read any 1 full book for FREE! Our gift to you for joining our reading community.</p>
                 </div>
+                <button class="claim-btn" onclick="claimFreeBook()">Claim Your Free Book</button>
+            </div>
 
-                <form class="auth-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="first-name">First Name</label>
-                            <input type="text" id="first-name" name="first_name" required placeholder="First name">
+            <!-- Dashboard Tabs -->
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" onclick="switchTab('all-books')">All Books</button>
+                <button class="tab-btn" onclick="switchTab('my-library')">My Library</button>
+                <button class="tab-btn" onclick="switchTab('in-progress')">In Progress</button>
+                <button class="tab-btn" onclick="switchTab('free-books')">Free Books</button>
+                <button class="tab-btn" onclick="switchTab('exclusive')">Exclusive</button>
+            </div>
+
+            <!-- All Books Tab -->
+            <div id="all-books" class="tab-content active">
+                <h2>All Available Books</h2>
+                <div class="books-grid">
+                    <!-- Book 1 -->
+                    <div class="book-card" data-categories="free">
+                        <div class="book-cover">
+                            <img src="https://raw.githubusercontent.com/RejoiceInstituteHouse/RejoiceInstituteHouse/main/Words-of-Insight-cover.jpg" alt="Words of Insight" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--light-beige);color:var(--warm-gold);font-size:2rem;\'>📖</div>';">
+                            <span class="book-badge free">FREE</span>
                         </div>
-                        <div class="form-group">
-                            <label for="last-name">Last Name</label>
-                            <input type="text" id="last-name" name="last_name" required placeholder="Last name">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="register-email">Email Address</label>
-                        <input type="email" id="register-email" name="email" required placeholder="Enter your email">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="user-type">I am a...</label>
-                        <select id="user-type" name="user_type" required>
-                            <option value="">Select your role</option>
-                            <option value="reader">Reader & Book Enthusiast</option>
-                            <option value="writer">Writer & Author</option>
-                            <option value="student">Student</option>
-                            <option value="professional">Industry Professional</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="register-password">Password</label>
-                        <input type="password" id="register-password" name="password" required placeholder="Create a password">
-                        <div class="password-requirements">
-                            <p>Password must contain:</p>
-                            <ul>
-                                <li>At least 8 characters</li>
-                                <li>One uppercase letter</li>
-                                <li>One number</li>
-                            </ul>
+                        <div class="book-info">
+                            <h3>Words of Insight</h3>
+                            <p class="author">by Promise Khosa & Jazzman Rikhotso</p>
+                            <p class="genre">Cultural Poetry · 2023</p>
+                            <div class="book-actions">
+                                <button class="btn-read" onclick="readBook('words-of-insight')">Read Now</button>
+                                <button class="btn-preview" onclick="previewBook('words-of-insight')">Preview</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm_password" required placeholder="Confirm your password">
+                    <!-- Book 2 -->
+                    <div class="book-card" data-categories="free">
+                        <div class="book-cover">
+                            <img src="https://images.unsplash.com/photo-1554757380-2fb69b9ca2e9?w=400&h=600&fit=crop" alt="Zoe" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--light-beige);color:var(--warm-gold);font-size:2rem;\'>📖</div>';">
+                            <span class="book-badge free">FREE</span>
+                        </div>
+                        <div class="book-info">
+                            <h3>Zoe</h3>
+                            <p class="author">by *****</p>
+                            <p class="genre">Mystery · 2024</p>
+                            <div class="book-actions">
+                                <button class="btn-read" onclick="readBook('zoe')">Read Now</button>
+                                <button class="btn-preview" onclick="previewBook('zoe')">Preview</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-options">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="newsletter" checked>
-                            <span class="checkmark"></span>
-                            Send me literary updates and newsletter
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="terms" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-                        </label>
+                    <!-- Book 3 - Future Release -->
+                    <div class="book-card" data-categories="exclusive">
+                        <div class="book-cover">
+                            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--light-beige);color:var(--warm-gold);font-size:2rem;">📚</div>
+                            <span class="book-badge exclusive">EXCLUSIVE</span>
+                        </div>
+                        <div class="book-info">
+                            <h3>The Silent Journey</h3>
+                            <p class="author">by New Author</p>
+                            <p class="genre">Literary Fiction · Coming Soon</p>
+                            <div class="book-actions">
+                                <button class="btn-read" disabled>Pre-Order</button>
+                                <button class="btn-preview" onclick="previewBook('silent-journey')">Preview</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-register auth-submit">Create Account</button>
-                </form>
-
-                <div class="auth-divider">
-                    <span>Or sign up with</span>
-                </div>
-
-                <div class="social-auth">
-                    <button type="button" class="btn-social google-auth">
-                        <span class="social-icon">🔍</span>
-                        Google
-                    </button>
-                    <button type="button" class="btn-social facebook-auth">
-                        <span class="social-icon">📘</span>
-                        Facebook
-                    </button>
-                </div>
-
-                <div class="auth-footer">
-                    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                    <!-- Book 4 - Future Release -->
+                    <div class="book-card" data-categories="exclusive">
+                        <div class="book-cover">
+                            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--light-beige);color:var(--warm-gold);font-size:2rem;">📚</div>
+                            <span class="book-badge exclusive">EXCLUSIVE</span>
+                        </div>
+                        <div class="book-info">
+                            <h3>Echoes of Tomorrow</h3>
+                            <p class="author">by Emerging Writer</p>
+                            <p class="genre">Science Fiction · Coming Soon</p>
+                            <div class="book-actions">
+                                <button class="btn-read" disabled>Pre-Order</button>
+                                <button class="btn-preview" onclick="previewBook('echoes-tomorrow')">Preview</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="auth-welcome">
-                <div class="welcome-content">
-                    <h2>Why Join Rejoice Institute?</h2>
-                    <div class="welcome-features">
-                        <div class="feature">
-                            <span class="feature-icon">🌟</span>
-                            <div>
-                                <h3>Exclusive Content</h3>
-                                <p>Access member-only articles, early book releases, and special editions</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <span class="feature-icon">📖</span>
-                            <div>
-                                <h3>Personalized Library</h3>
-                                <p>Build your digital bookshelf and track your reading journey</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <span class="feature-icon">👥</span>
-                            <div>
-                                <h3>Reading Community</h3>
-                                <p>Connect with authors and fellow literature lovers in our hub</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <span class="feature-icon">🎯</span>
-                            <div>
-                                <h3>Personalized Recommendations</h3>
-                                <p>Get book suggestions tailored to your reading preferences</p>
-                            </div>
-                        </div>
+            <!-- My Library Tab -->
+            <div id="my-library" class="tab-content">
+                <h2>My Personal Library</h2>
+                <div class="books-grid">
+                    <div class="empty-state">
+                        <div class="icon">📚</div>
+                        <h3>Your library is empty</h3>
+                        <p>Start reading books to add them to your personal library!</p>
                     </div>
+                </div>
+            </div>
+
+            <!-- In Progress Tab -->
+            <div id="in-progress" class="tab-content">
+                <h2>Books in Progress</h2>
+                <div class="books-grid">
+                    <div class="empty-state">
+                        <div class="icon">📖</div>
+                        <h3>No books in progress</h3>
+                        <p>Start reading a book to track your progress here!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Free Books Tab -->
+            <div id="free-books" class="tab-content">
+                <h2>Free Books Available</h2>
+                <div class="books-grid">
+                    <!-- Free books will be filtered here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Exclusive Tab -->
+            <div id="exclusive" class="tab-content">
+                <h2>Exclusive Content</h2>
+                <div class="books-grid">
+                    <!-- Exclusive books will be filtered here by JavaScript -->
                 </div>
             </div>
         </div>
@@ -612,6 +669,105 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Check if user is logged in
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Dashboard functionality
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+
+            // Filter books for specific tabs
+            if (tabName === 'free-books') {
+                filterBooks('free');
+            } else if (tabName === 'exclusive') {
+                filterBooks('exclusive');
+            }
+        }
+
+        function filterBooks(category) {
+            const tabContent = document.querySelector('.tab-content.active .books-grid');
+            const allBooks = document.querySelectorAll('#all-books .book-card');
+            
+            tabContent.innerHTML = '';
+            
+            allBooks.forEach(book => {
+                if (book.dataset.categories.includes(category)) {
+                    tabContent.appendChild(book.cloneNode(true));
+                }
+            });
+
+            if (tabContent.children.length === 0) {
+                tabContent.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">🔍</div>
+                        <h3>No ${category} books found</h3>
+                        <p>Check back later for new ${category} content!</p>
+                    </div>
+                `;
+            }
+        }
+
+        function claimFreeBook() {
+            alert('🎉 Congratulations! You can now read any 1 book for FREE!\n\nChoose a book from the "Free Books" tab and click "Read Now" to start reading immediately.');
+            
+            // You can add actual free book claiming logic here
+            // For example: set a flag in localStorage or send to backend
+            localStorage.setItem('freeBookClaimed', 'true');
+        }
+
+        function readBook(bookId) {
+            alert(`Opening "${bookId}" for reading...\n\nIn a real implementation, this would open the book reader with full content.`);
+            // Add actual book reading logic here
+        }
+
+        function previewBook(bookId) {
+            alert(`Showing preview of "${bookId}"...\n\nPreview the first few pages of this book.`);
+            // Add actual book preview logic here
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set user name from localStorage
+            const userName = localStorage.getItem('userName') || 'Reader';
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userWelcome').textContent = `Welcome, ${userName}!`;
+
+            // Check if free book already claimed
+            if (localStorage.getItem('freeBookClaimed')) {
+                document.querySelector('.free-book-offer').innerHTML = `
+                    <div class="offer-content">
+                        <h3>✅ Free Book Claimed!</h3>
+                        <p>You've already claimed your free book. Enjoy reading!</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
 </body>
 </html>

@@ -457,7 +457,7 @@
                     <p>Sign in to your account to continue your reading journey</p>
                 </div>
 
-                <form class="auth-form">
+                <form class="auth-form" id="loginForm">
                     <div class="form-group">
                         <label for="login-email">Email Address</label>
                         <input type="email" id="login-email" name="email" required placeholder="Enter your email">
@@ -485,11 +485,11 @@
                 </div>
 
                 <div class="social-auth">
-                    <button type="button" class="btn-social google-auth">
+                    <button type="button" class="btn-social google-auth" id="googleLogin">
                         <span class="social-icon">🔍</span>
                         Google
                     </button>
-                    <button type="button" class="btn-social facebook-auth">
+                    <button type="button" class="btn-social facebook-auth" id="facebookLogin">
                         <span class="social-icon">📘</span>
                         Facebook
                     </button>
@@ -538,6 +538,44 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Login form redirection
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (email && password) {
+                // Store user info for dashboard
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userName', email.split('@')[0]);
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Please fill in both email and password.');
+            }
+        });
+
+        // Social login buttons
+        document.getElementById('googleLogin').addEventListener('click', function() {
+            localStorage.setItem('userName', 'Google User');
+            localStorage.setItem('isLoggedIn', 'true');
+            window.location.href = 'dashboard.html';
+        });
+
+        document.getElementById('facebookLogin').addEventListener('click', function() {
+            localStorage.setItem('userName', 'Facebook User');
+            localStorage.setItem('isLoggedIn', 'true');
+            window.location.href = 'dashboard.html';
+        });
+
+        // Check if already logged in
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
 </body>
 </html>

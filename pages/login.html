@@ -437,8 +437,6 @@
                     <li><a href="books.html">Books</a></li>
                     <li><a href="hub.html">Hub</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
                 </ul>
                 <div class="auth-buttons">
                     <a href="login.html" class="btn btn-login">Login</a>
@@ -539,6 +537,19 @@
     </footer>
 
     <script>
+        // Admin email recognition function
+        function isAdminEmail(email) {
+            const adminEmails = [
+                'rejoiceinstitutehouse@gmail.com',
+                'khosapromise12@gmail.com',
+                'promise@rejoiceinstitute.com',
+                'tsakani@rejoiceinstitute.com',
+                'manager@rejoiceinstitute.com',
+                'superadmin@rejoiceinstitute.com'
+            ];
+            return adminEmails.includes(email.toLowerCase());
+        }
+
         // Login form redirection
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -552,29 +563,42 @@
                 localStorage.setItem('userName', email.split('@')[0]);
                 localStorage.setItem('isLoggedIn', 'true');
                 
-                // Redirect to dashboard
-                window.location.href = 'dashboard.html';
+                // Check if admin email and redirect accordingly
+                if (isAdminEmail(email)) {
+                    localStorage.setItem('userRole', 'admin');
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    localStorage.setItem('userRole', 'user');
+                    window.location.href = 'dashboard.html';
+                }
             } else {
                 alert('Please fill in both email and password.');
             }
         });
 
-        // Social login buttons
+        // Social login buttons - redirect to regular dashboard
         document.getElementById('googleLogin').addEventListener('click', function() {
             localStorage.setItem('userName', 'Google User');
+            localStorage.setItem('userRole', 'user');
             localStorage.setItem('isLoggedIn', 'true');
             window.location.href = 'dashboard.html';
         });
 
         document.getElementById('facebookLogin').addEventListener('click', function() {
             localStorage.setItem('userName', 'Facebook User');
+            localStorage.setItem('userRole', 'user');
             localStorage.setItem('isLoggedIn', 'true');
             window.location.href = 'dashboard.html';
         });
 
-        // Check if already logged in
+        // Check if already logged in and redirect accordingly
         if (localStorage.getItem('isLoggedIn') === 'true') {
-            window.location.href = 'dashboard.html';
+            const userRole = localStorage.getItem('userRole');
+            if (userRole === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                window.location.href = 'dashboard.html';
+            }
         }
     </script>
 </body>

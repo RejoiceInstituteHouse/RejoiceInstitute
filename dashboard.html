@@ -3,46 +3,784 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Rejoice Institute House | Dashboard</title>
-    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== DASHBOARD SPECIFIC STYLES ===== */
+        :root {
+            --primary-white: #FFFFFF;
+            --rich-black: #1A1A1A;
+            --warm-gold: #D4AF37;
+            --earth-brown: #8B4513;
+            --light-beige: #F5F5DC;
+            --soft-cream: #FDF5E6;
+            --success-green: #27ae60;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-white);
+            color: var(--rich-black);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background: var(--primary-white);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-beige);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: var(--warm-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .logo a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--rich-black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: var(--rich-black);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--warm-gold);
+            background: var(--soft-cream);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-welcome {
+            font-weight: 500;
+            color: var(--earth-brown);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--earth-brown);
+            border: 2px solid var(--earth-brown);
+        }
+
+        .btn-register {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* ===== DASHBOARD CONTENT ===== */
+        .dashboard {
+            padding: 2rem 0;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--soft-cream) 0%, var(--primary-white) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--light-beige);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23D4AF37" opacity="0.1"><path d="M30,20 Q50,0 70,20 T110,20" stroke="none"/></svg>') no-repeat;
+        }
+
+        .welcome-banner h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--rich-black);
+        }
+
+        .welcome-banner p {
+            font-size: 1.1rem;
+            color: var(--rich-black);
+            opacity: 0.8;
+            max-width: 600px;
+        }
+
+        /* Free Book Offer */
+        .free-book-offer {
+            background: linear-gradient(135deg, var(--warm-gold) 0%, var(--earth-brown) 100%);
+            color: var(--primary-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .offer-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .claim-btn {
+            background: var(--primary-white);
+            color: var(--earth-brown);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .claim-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Dashboard Tabs */
+        .dashboard-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--light-beige);
+            padding-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--rich-black);
+        }
+
+        .tab-btn.active {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: var(--soft-cream);
+        }
+
+        /* Books Grid */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .book-card {
+            background: var(--primary-white);
+            border-radius: 12px;
+            border: 1px solid var(--light-beige);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .book-cover {
+            height: 200px;
+            background: var(--soft-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--success-green);
+            color: var(--primary-white);
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .book-badge.free {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+        }
+
+        .book-badge.exclusive {
+            background: var(--earth-brown);
+            color: var(--primary-white);
+        }
+
+        .book-info {
+            padding: 1.5rem;
+        }
+
+        .book-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--rich-black);
+        }
+
+        .author {
+            color: var(--earth-brown);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .genre {
+            color: var(--rich-black);
+            opacity: 0.7;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-read {
+            background: var(--warm-gold);
+            color: var(--rich-black);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-preview {
+            background: transparent;
+            color: var(--earth-brown);
+            border: 1px solid var(--earth-brown);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-read:hover,
+        .btn-preview:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            background: var(--soft-cream);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--light-beige);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--warm-gold);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--rich-black);
+            opacity: 0.7;
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--rich-black);
+            color: var(--primary-white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .welcome-banner h1 {
+                font-size: 1.8rem;
+            }
+
+            .free-book-offer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .dashboard-tabs {
+                justify-content: center;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                text-align: center;
+            }
+
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .book-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Hidden class for tab content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
+    <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav>
-                <div class="logo">
-                    <a href="../index.html">REJOICE INSTITUTE HOUSE</a>
+                <div class="logo-container">
+                    <div class="logo-img">RIH</div>
+                    <div class="logo">
+                        <a href="index.html">REJOICE INSTITUTE HOUSE</a>
+                    </div>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="books.html">Books</a></li>
-                    <li><a href="hub.html">Hub</a></li>
-                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/books.html">Books</a></li>
+                    <li><a href="pages/hub.html">Hub</a></li>
+                    <li><a href="pages/about.html">About</a></li>
                 </ul>
                 <div class="auth-buttons">
-                    <span class="user-welcome">Loading...</span>
-                    <a href="#" class="btn btn-login logout-btn">Logout</a>
+                    <span class="user-welcome" id="userWelcome">Welcome, Reader!</span>
+                    <a href="#" class="btn btn-login logout-btn" onclick="logout()">Logout</a>
                 </div>
             </nav>
         </div>
     </header>
 
+    <!-- Main Dashboard Content -->
     <main class="container">
-        <div class="dashboard-loader">
-            <div class="loader-content">
-                <h1>Loading Your Dashboard</h1>
-                <p>Taking you to your personalized workspace...</p>
-                <div class="loading-spinner"></div>
-                <p class="redirect-message">If redirect doesn't happen automatically, <a href="dashboard-reader.html">click here</a></p>
+        <div class="dashboard">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <h1>Welcome back, <span id="userName">Reader</span>! 📚</h1>
+                <p>Continue your reading journey with your personalized library and discover new stories that inspire you.</p>
+            </div>
+
+            <!-- Free Book Offer -->
+            <div class="free-book-offer">
+                <div class="offer-content">
+                    <h3>🎁 Special Offer Just For You!</h3>
+                    <p>Read any 1 full book for FREE! Our gift to you for joining our reading community.</p>
+                </div>
+                <button class="claim-btn" onclick="claimFreeBook()">Claim Your Free Book</button>
+            </div>
+
+            <!-- Dashboard Tabs -->
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" onclick="switchTab('all-books')">All Books</button>
+                <button class="tab-btn" onclick="switchTab('my-library')">My Library</button>
+                <button class="tab-btn" onclick="switchTab('in-progress')">In Progress</button>
+                <button class="tab-btn" onclick="switchTab('free-books')">Free Books</button>
+                <button class="tab-btn" onclick="switchTab('exclusive')">Exclusive</button>
+            </div>
+
+            <!-- All Books Tab -->
+            <div id="all-books" class="tab-content active">
+                <h2>All Available Books</h2>
+                <div class="books-grid">
+                    <!-- Book 1 -->
+                    <div class="book-card" data-categories="free">
+                        <div class="book-cover">
+                            <img src="https://raw.githubusercontent.com/RejoiceInstituteHouse/RejoiceInstituteHouse/main/Words-of-Insight-cover.jpg" alt="Words of Insight" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--light-beige);color:var(--warm-gold);font-size:2rem;\'>📖</div>';">
+                            <span class="book-badge free">FREE</span>
+                        </div>
+                        <div class="book-info">
+                            <h3>Words of Insight</h3>
+                            <p class="author">by Promise Khosa & Jazzman Rikhotso</p>
+                            <p class="genre">Cultural Poetry · 2023</p>
+                            <div class="book-actions">
+                                <button class="btn-read" onclick="readBook('words-of-insight')">Read Now</button>
+                                <button class="btn-preview" onclick="previewBook('words-of-insight')">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book 2 -->
+                    <div class="book-card" data-categories="free">
+                        <div class="book-cover">
+                            <img src="https://images.unsplash.com/photo-1554757380-2fb69b9ca2e9?w=400&h=600&fit=crop" alt="Zoe" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--light-beige);color:var(--warm-gold);font-size:2rem;\'>📖</div>';">
+                            <span class="book-badge free">FREE</span>
+                        </div>
+                        <div class="book-info">
+                            <h3>Zoe</h3>
+                            <p class="author">by *****</p>
+                            <p class="genre">Mystery · 2024</p>
+                            <div class="book-actions">
+                                <button class="btn-read" onclick="readBook('zoe')">Read Now</button>
+                                <button class="btn-preview" onclick="previewBook('zoe')">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book 3 - Future Release -->
+                    <div class="book-card" data-categories="exclusive">
+                        <div class="book-cover">
+                            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--light-beige);color:var(--warm-gold);font-size:2rem;">📚</div>
+                            <span class="book-badge exclusive">EXCLUSIVE</span>
+                        </div>
+                        <div class="book-info">
+                            <h3>The Silent Journey</h3>
+                            <p class="author">by New Author</p>
+                            <p class="genre">Literary Fiction · Coming Soon</p>
+                            <div class="book-actions">
+                                <button class="btn-read" disabled>Pre-Order</button>
+                                <button class="btn-preview" onclick="previewBook('silent-journey')">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book 4 - Future Release -->
+                    <div class="book-card" data-categories="exclusive">
+                        <div class="book-cover">
+                            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--light-beige);color:var(--warm-gold);font-size:2rem;">📚</div>
+                            <span class="book-badge exclusive">EXCLUSIVE</span>
+                        </div>
+                        <div class="book-info">
+                            <h3>Echoes of Tomorrow</h3>
+                            <p class="author">by Emerging Writer</p>
+                            <p class="genre">Science Fiction · Coming Soon</p>
+                            <div class="book-actions">
+                                <button class="btn-read" disabled>Pre-Order</button>
+                                <button class="btn-preview" onclick="previewBook('echoes-tomorrow')">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Library Tab -->
+            <div id="my-library" class="tab-content">
+                <h2>My Personal Library</h2>
+                <div class="books-grid">
+                    <div class="empty-state">
+                        <div class="icon">📚</div>
+                        <h3>Your library is empty</h3>
+                        <p>Start reading books to add them to your personal library!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In Progress Tab -->
+            <div id="in-progress" class="tab-content">
+                <h2>Books in Progress</h2>
+                <div class="books-grid">
+                    <div class="empty-state">
+                        <div class="icon">📖</div>
+                        <h3>No books in progress</h3>
+                        <p>Start reading a book to track your progress here!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Free Books Tab -->
+            <div id="free-books" class="tab-content">
+                <h2>Free Books Available</h2>
+                <div class="books-grid">
+                    <!-- Free books will be filtered here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Exclusive Tab -->
+            <div id="exclusive" class="tab-content">
+                <h2>Exclusive Content</h2>
+                <div class="books-grid">
+                    <!-- Exclusive books will be filtered here by JavaScript -->
+                </div>
             </div>
         </div>
     </main>
 
-    <!-- Firebase and Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-    <script src="firebase-config.js"></script>
-    <script src="script.js"></script>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Rejoice Institute House. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            if (isLoggedIn !== 'true') {
+                // Redirect to login if not logged in
+                window.location.href = 'pages/login.html';
+                return;
+            }
+
+            // Initialize dashboard only if user is logged in
+            initializeDashboard();
+        });
+
+        // Dashboard functionality
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+
+            // Filter books for specific tabs
+            if (tabName === 'free-books') {
+                filterBooks('free');
+            } else if (tabName === 'exclusive') {
+                filterBooks('exclusive');
+            }
+        }
+
+        function filterBooks(category) {
+            const tabContent = document.querySelector('.tab-content.active .books-grid');
+            const allBooks = document.querySelectorAll('#all-books .book-card');
+            
+            tabContent.innerHTML = '';
+            
+            allBooks.forEach(book => {
+                if (book.dataset.categories.includes(category)) {
+                    tabContent.appendChild(book.cloneNode(true));
+                }
+            });
+
+            if (tabContent.children.length === 0) {
+                tabContent.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">🔍</div>
+                        <h3>No ${category} books found</h3>
+                        <p>Check back later for new ${category} content!</p>
+                    </div>
+                `;
+            }
+        }
+
+        function claimFreeBook() {
+            alert('🎉 Congratulations! You can now read any 1 book for FREE!\n\nChoose a book from the "Free Books" tab and click "Read Now" to start reading immediately.');
+            
+            // You can add actual free book claiming logic here
+            // For example: set a flag in localStorage or send to backend
+            localStorage.setItem('freeBookClaimed', 'true');
+        }
+
+        function readBook(bookId) {
+            alert(`Opening "${bookId}" for reading...\n\nIn a real implementation, this would open the book reader with full content.`);
+            // Add actual book reading logic here
+        }
+
+        function previewBook(bookId) {
+            alert(`Showing preview of "${bookId}"...\n\nPreview the first few pages of this book.`);
+            // Add actual book preview logic here
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear all user data from localStorage
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userRole');
+                localStorage.removeItem('freeBookClaimed');
+                
+                // Redirect to home page
+                window.location.href = 'index.html';
+            }
+        }
+
+        function initializeDashboard() {
+            // Set user name from localStorage
+            const userName = localStorage.getItem('userName') || 'Reader';
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userWelcome').textContent = `Welcome, ${userName}!`;
+
+            // Check if free book already claimed
+            if (localStorage.getItem('freeBookClaimed')) {
+                document.querySelector('.free-book-offer').innerHTML = `
+                    <div class="offer-content">
+                        <h3>✅ Free Book Claimed!</h3>
+                        <p>You've already claimed your free book. Enjoy reading!</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>

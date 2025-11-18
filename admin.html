@@ -376,14 +376,14 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
     
     <script>
-        // Your Firebase config - USE YOUR ACTUAL CONFIG
+        // Your Firebase config - REPLACE WITH YOUR ACTUAL VALUES FROM FIREBASE CONSOLE
         const firebaseConfig = {
-            apiKey: "AIzaSyDdX4_8hGxJ7Y2WvI3Jp8Q6Y9Z0q1A2B3C",
+            apiKey: "AIzaSyDLhqFt4rYXJgxbu5l4q50rx1FZkARyDYE",
             authDomain: "rejoice-institute-house.firebaseapp.com",
             projectId: "rejoice-institute-house",
-            storageBucket: "rejoice-institute-house.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef123456"
+            storageBucket: "rejoice-institute-house.firebasestorage.app",
+            messagingSenderId: "154515308139",
+            appId: "1:154515308139:web:72b2e940af48283c787b2e"
         };
 
         // Initialize Firebase
@@ -391,19 +391,13 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // List of authorized admin email domains or specific emails
+        // List of authorized admin emails
         const ADMIN_EMAILS = [
             "khosapromise12@gmail.com",
             "rejoiceinstitutehouse@gmail.com"
-            // Add more admin emails as needed
         ];
 
-        // Admin email domains (alternative approach)
-        const ADMIN_DOMAINS = [
-            // Add admin domains here
-        ];
-
-        // Check if user is admin - IMPROVED VERSION
+        // Check if user is admin
         function isAdmin(user) {
             if (!user || !user.email) return false;
             
@@ -418,31 +412,15 @@
                 }
             }
             
-            // Check admin domains
-            for (const domain of ADMIN_DOMAINS) {
-                if (email.endsWith('@' + domain.toLowerCase())) {
-                    console.log("✅ Admin access granted - domain match:", domain);
-                    return true;
-                }
-            }
-            
             console.log("❌ Admin access denied");
             return false;
         }
 
-        // Debug function
-        function debugAdminCheck(user) {
-            console.log("🔍 DEBUG Admin Check:");
-            console.log("User email:", user.email);
-            console.log("Admin emails list:", ADMIN_EMAILS);
-            console.log("Admin domains list:", ADMIN_DOMAINS);
-            console.log("Is admin?", isAdmin(user));
-        }
-
         // Check if user is already logged in
         auth.onAuthStateChanged((user) => {
+            console.log("👤 Auth state changed:", user ? user.email : "No user");
             if (user) {
-                debugAdminCheck(user); // DEBUG: Check what's happening
+                console.log("🔍 Checking if admin...");
                 if (isAdmin(user)) {
                     showAdminPanel(user);
                 } else {
@@ -459,10 +437,12 @@
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            console.log("🔐 Login attempt:", email);
 
             try {
                 const userCredential = await auth.signInWithEmailAndPassword(email, password);
                 const user = userCredential.user;
+                console.log("✅ Login successful:", user.email);
                 
                 if (isAdmin(user)) {
                     showAdminPanel(user);
@@ -472,6 +452,7 @@
                     showLoginMessage('✅ Successfully logged in!', 'success');
                 }
             } catch (error) {
+                console.error("❌ Login failed:", error);
                 showLoginMessage('❌ Login failed: ' + error.message, 'error');
             }
         });
@@ -481,7 +462,6 @@
             try {
                 await auth.signOut();
                 showLoginMessage('✅ Successfully logged out. Redirecting...', 'success');
-                // Redirect to home page after 2 seconds
                 setTimeout(() => {
                     window.location.href = '/';
                 }, 2000);
@@ -495,7 +475,6 @@
             try {
                 await auth.signOut();
                 showLoginMessage('✅ Successfully logged out. Redirecting...', 'success');
-                // Redirect to home page after 2 seconds
                 setTimeout(() => {
                     window.location.href = '/';
                 }, 2000);
@@ -576,56 +555,59 @@
             messageDiv.className = `message ${type}`;
         }
 
-        // Temporary test button for debugging
-        const testAdminBtn = document.createElement('button');
-        testAdminBtn.textContent = '🧪 Test Admin Detection';
-        testAdminBtn.style.cssText = `
-            position: fixed;
-            top: 50px;
-            right: 10px;
-            background: #4285f4;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 10000;
-            font-size: 12px;
-        `;
-        testAdminBtn.onclick = () => {
-            const user = auth.currentUser;
-            if (user) {
-                debugAdminCheck(user);
-                alert(`Current user: ${user.email}\nIs admin? ${isAdmin(user)}`);
-            } else {
-                alert('No user logged in');
-            }
-        };
-        document.body.appendChild(testAdminBtn);
-
-        // Temporary force logout button
-        const forceLogoutBtn = document.createElement('button');
-        forceLogoutBtn.textContent = '🚨 Force Logout';
-        forceLogoutBtn.style.cssText = `
+        // Temporary debug buttons
+        const debugDiv = document.createElement('div');
+        debugDiv.style.cssText = `
             position: fixed;
             top: 10px;
             right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10000;
+        `;
+
+        const testBtn = document.createElement('button');
+        testBtn.textContent = '🧪 Test Connection';
+        testBtn.style.cssText = `
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        `;
+        testBtn.onclick = () => {
+            const user = auth.currentUser;
+            if (user) {
+                alert(`Connected! User: ${user.email}\nIs admin? ${isAdmin(user)}`);
+            } else {
+                alert('Firebase connected but no user logged in');
+            }
+        };
+
+        const logoutBtn = document.createElement('button');
+        logoutBtn.textContent = '🚨 Force Logout';
+        logoutBtn.style.cssText = `
             background: #ff4444;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 8px 12px;
             border-radius: 5px;
             cursor: pointer;
-            z-index: 10000;
             font-size: 12px;
         `;
-        forceLogoutBtn.onclick = async () => {
+        logoutBtn.onclick = async () => {
             await auth.signOut();
             localStorage.clear();
             sessionStorage.clear();
             window.location.reload();
         };
-        document.body.appendChild(forceLogoutBtn);
+
+        debugDiv.appendChild(testBtn);
+        debugDiv.appendChild(logoutBtn);
+        document.body.appendChild(debugDiv);
     </script>
 </body>
 </html>
